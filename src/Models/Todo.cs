@@ -27,7 +27,6 @@ namespace App.Models {
 
         /* Pretty prints a Todo*/
         public void Print() {
-            
             Console.WriteLine($"Task{this.Number}: {this.Title}");
             Console.WriteLine(this.Description);
             Console.WriteLine($"Completed: {this.Completed}");

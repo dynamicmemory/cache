@@ -1,25 +1,27 @@
-// TODO: Update State to a boolean instead of my C nonsense...
 namespace App.Managers {
 
     class MenuManager {
         private TodoManager Manager { get; set; }
-        private int State { get; set;}
+        private bool State { get; set;}
     
         public MenuManager(TodoManager manager) {
             Manager = manager; 
-            State = 1;
+            State = false;
         }
 
         /* Handles input commands from the user and returns the state of the 
          * program after each command, 1 for active, 0 for quit*/
-        public int Run() {
+        public bool Run() {
+            Console.Clear();
+            Manager.PrintAll();
+
             Console.WriteLine("Enter a command:");
             Console.WriteLine(
                     "(a) for add\n(e) for edit\n(d) for delete\n(q) for quit");
             Console.Write("\n>> ");
             string command = Console.ReadLine() ?? "";
             CommandManager(command);
-            return this.State;
+            return State;
         }
 
         /* Pattern matches a users command and hands off control to the chosen
@@ -62,7 +64,7 @@ namespace App.Managers {
         /* Flips the state of the program to 0 i.e false for the main loop to 
          * exit.*/
         public void Quit() {
-            this.State = 0;
+            State = true;
         }
 
         /* Control for unknown input, currently does nothing as prompt is just 
