@@ -1,0 +1,15 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:managers="clr-namespace:App.Managers"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="src.MainWindow"
+        x:DataType="managers:TaskManager"
+        Title="Cache - Download your brain for better context switching.">
+
+    <TextBlock Text="{Binding CurrentTask}"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               FontSize="24"/>
+</Window>

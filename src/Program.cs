@@ -1,13 +1,21 @@
-﻿using App.Managers;
+﻿using Avalonia;
+using System;
 
-public class Program {
+namespace src;
 
-    public static void Main() {
-        TodoManager manager = new TodoManager();
-        MenuManager menu = new MenuManager(manager);
+class Program
+{
+    // Initialization code. Don't use any Avalonia, third-party APIs or any
+    // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
+    // yet and stuff might break.
+    [STAThread]
+    public static void Main(string[] args) => BuildAvaloniaApp()
+        .StartWithClassicDesktopLifetime(args);
 
-        while (true) {
-            if (menu.Run()) break;
-        }
-    }
+    // Avalonia configuration, don't remove; also used by visual designer.
+    public static AppBuilder BuildAvaloniaApp()
+        => AppBuilder.Configure<App>()
+            .UsePlatformDetect()
+            .WithInterFont()
+            .LogToTrace();
 }

@@ -1,0 +1,20 @@
+[
+  {
+    "Number": 1,
+    "Title": "Learn C#",
+    "Description": "Start by building a cli CRUD app in C#",
+    "Completed": false
+  },
+  {
+    "Number": 2,
+    "Title": "Desktop Version in C#",
+    "Description": "Now build this as a Desktop app or web app Kanban style!",
+    "Completed": false
+  },
+  {
+    "Number": 3,
+    "Title": "Build Latent in C#",
+    "Description": "The ERP Framework of the future",
+    "Completed": false
+  }
+]
