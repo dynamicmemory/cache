@@ -3,11 +3,11 @@ namespace App.Managers {
     public class ColumnManager {
 
         public TaskManager Manager { get; set; }
-        public string Name { get; set; }
+        public string ColName { get; set; }
 
         public ColumnManager(string name) {
             Manager = new TaskManager();
-            Name = name;
+            ColName = name;
         }
 
         // Set should just do this tho?

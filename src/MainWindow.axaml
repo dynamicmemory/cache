@@ -1,15 +1,47 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:managers="clr-namespace:App.Managers"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:board="clr-namespace:App.Board"
         x:Class="src.MainWindow"
-        x:DataType="managers:TaskManager"
+        x:DataType="board:Board"
+        Width="800"
+        Height="450"
+        Padding="10"
         Title="Cache - Download your brain for better context switching.">
 
-    <TextBlock Text="{Binding CurrentTask}"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"
-               FontSize="24"/>
+    <ItemsControl ItemsSource="{Binding ColumnList}">
+
+        <!-- SETS COLUMNS HORIZ-->
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <StackPanel Orientation="Horizontal"/>
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <Border BorderBrush="Black" Padding="5" Margin="0 0 10 0" BorderThickness="1" CornerRadius="4">
+                <StackPanel Margin="10" Width="200">
+
+
+                    <!-- COLUMN NAMES-->
+                    <TextBlock Text="{Binding ColName}" FontSize="18" Margin="0 0 0 10"/>
+
+                    <!-- TASK NAMES-->
+                    <ItemsControl ItemsSource="{Binding Manager.Tasks}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Black" Padding="5" Margin="0 0 0 5" BorderThickness="1" CornerRadius="4">
+                                    <TextBlock Text="{Binding TaskName}"/>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                </StackPanel>
+              </Border>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+
+    </ItemsControl>
+
 </Window>

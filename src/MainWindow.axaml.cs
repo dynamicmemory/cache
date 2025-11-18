@@ -1,16 +1,16 @@
 using Avalonia.Controls;
-using App.Managers;
+using App.Board;
+
 namespace src;
 
 public partial class MainWindow : Window {
 
-    private TaskManager manager; 
+    public Board TaskBoard { get; }
 
     public MainWindow() {
+        TaskBoard = new Board();
         InitializeComponent();
-        manager = new TaskManager();
-        manager.GetTask();
 
-        this.DataContext = manager;
+        this.DataContext = TaskBoard;
     }
 }
