@@ -19,18 +19,29 @@
 
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-              <Border BorderBrush="Black" Padding="5" Margin="0 0 10 0" BorderThickness="1" CornerRadius="4">
+              <Border BorderBrush="Black" 
+                      Padding="5" 
+                      Margin="0 0 10 0" 
+                      BorderThickness="1" 
+                      CornerRadius="4">
                 <StackPanel Margin="10" Width="200">
-
-
-                    <!-- COLUMN NAMES-->
+                
+                  <!-- COLUMN HEADER-->
+                  <StackPanel Margin="10" Orientation="Horizontal">
                     <TextBlock Text="{Binding ColName}" FontSize="18" Margin="0 0 0 10"/>
-
+                  <!-- ADDS NEW TASK BUTTON-->
+                    <Button Content="+" Command="{Binding Manager.AddNewTask}"/>
+                  </StackPanel>
+           
                     <!-- TASK NAMES-->
-                    <ItemsControl ItemsSource="{Binding Manager.Tasks}">
+                    <ItemsControl ItemsSource="{Binding Manager.Tasks}"> 
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderBrush="Black" Padding="5" Margin="0 0 0 5" BorderThickness="1" CornerRadius="4">
+                                <Border BorderBrush="Black" 
+                                        Padding="5" 
+                                        Margin="0 0 0 5" 
+                                        BorderThickness="1" 
+                                        CornerRadius="4">
                                     <TextBlock Text="{Binding TaskName}"/>
                                 </Border>
                             </DataTemplate>

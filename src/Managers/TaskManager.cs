@@ -15,5 +15,10 @@ namespace App.Managers {
             TaskCard tc = new TaskCard("Test Task", "This is a test task", "blue");
             Tasks.Add(tc);
         }
+
+        public void AddNewTask() {
+            TaskCard tc = new TaskCard("New Task Added");
+            Tasks.Add(tc);
+        }
     }
 }
