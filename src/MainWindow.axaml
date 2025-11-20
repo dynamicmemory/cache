@@ -8,7 +8,19 @@
         Padding="10"
         Title="Cache - Download your brain for better context switching.">
 
+
+  <DockPanel>
+
+    <!-- TOP PANEL-->
+    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="10">
+      <Button Content="Add Task" Command="{Binding FirstColumn.Manager.AddNewTask}" />
+    </StackPanel>
+
+
+    <!-- COLUMNS PANEL-->
+    <ScrollViewer HorizontalScrollBarVisibility="Auto">
     <ItemsControl ItemsSource="{Binding ColumnList}">
+
 
         <!-- SETS COLUMNS HORIZ-->
         <ItemsControl.ItemsPanel>
@@ -29,8 +41,10 @@
                   <!-- COLUMN HEADER-->
                   <StackPanel Margin="10" Orientation="Horizontal">
                     <TextBlock Text="{Binding ColName}" FontSize="18" Margin="0 0 0 10"/>
+
                   <!-- ADDS NEW TASK BUTTON-->
-                    <Button Content="+" Command="{Binding Manager.AddNewTask}"/>
+
+
                   </StackPanel>
            
                     <!-- TASK NAMES-->
@@ -54,5 +68,7 @@
         </ItemsControl.ItemTemplate>
 
     </ItemsControl>
+    </ScrollViewer>
+    </DockPanel>
 
 </Window>

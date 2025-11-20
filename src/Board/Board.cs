@@ -6,6 +6,7 @@ namespace App.Board {
     public class Board {
 
         public ObservableCollection<ColumnManager> ColumnList { get; set; }
+        public ColumnManager FirstColumn { get; set; }
 
         public Board() {
             ColumnList = new ObservableCollection<ColumnManager>();
@@ -16,6 +17,7 @@ namespace App.Board {
             ColumnList.Add(col2);
             ColumnList.Add(col3);
 
+            FirstColumn = ColumnList[0];
         }
     }
 }
