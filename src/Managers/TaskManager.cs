@@ -9,16 +9,16 @@ namespace App.Managers {
     public class TaskManager {
 
         public ObservableCollection<TaskCard> Tasks { get; }
+        public int NumberOfTasks { get; set; }
 
         public TaskManager() {
             Tasks = new ObservableCollection<TaskCard>();
-            TaskCard tc = new TaskCard("Test Task", "This is a test task", "blue");
-            Tasks.Add(tc);
         }
 
         public void AddNewTask() {
-            TaskCard tc = new TaskCard("New Task Added");
+            TaskCard tc = new TaskCard($"New Task Added {NumberOfTasks}");
             Tasks.Add(tc);
+            NumberOfTasks++;
         }
     }
 }

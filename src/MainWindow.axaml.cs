@@ -25,4 +25,12 @@ public partial class MainWindow : Window {
             }
         }
     }
+
+    // private async void AddColumn_Click(object? sender, RoutedEventArgs e) {
+    //     var dialog = new NamePrompt();
+    //     var result = await dialog.ShowDialog<string>(this);
+    //
+    //     if (!string.IsNullOrWhiteSpace(result))
+    //         TaskBoard.AddColumn(result);
+    // }
 }

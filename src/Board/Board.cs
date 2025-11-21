@@ -7,17 +7,26 @@ namespace App.Board {
 
         public ObservableCollection<ColumnManager> ColumnList { get; set; }
         public ColumnManager FirstColumn { get; set; }
+        public int NumberOfColumns { get; set; }
 
         public Board() {
             ColumnList = new ObservableCollection<ColumnManager>();
-            ColumnManager col1 = new ColumnManager("Tasks");
-            ColumnManager col2 = new ColumnManager("Doing");
-            ColumnManager col3 = new ColumnManager("Finished");
-            ColumnList.Add(col1);
-            ColumnList.Add(col2);
-            ColumnList.Add(col3);
-
+            AddTaskColumn();
             FirstColumn = ColumnList[0];
+        }
+
+        /* Adds the default Task column to the UI*/
+        public void AddTaskColumn() {
+            ColumnManager col = new ColumnManager("Tasks");
+            ColumnList.Add(col);
+            NumberOfColumns++;
+        }
+
+        /* Help function for adding a new column to the UI*/
+        public void AddColumn(string colName) {
+            ColumnManager col = new ColumnManager("New Column");
+            ColumnList.Add(col);            
+            NumberOfColumns++;
         }
     }
 }

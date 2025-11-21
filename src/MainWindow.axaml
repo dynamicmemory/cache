@@ -14,6 +14,7 @@
     <!-- TOP PANEL-->
     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="10">
       <Button Content="Add Task" Command="{Binding FirstColumn.Manager.AddNewTask}" />
+      <Button Content="Add Column" Command="{Binding AddColumn}" />
     </StackPanel>
 
 
@@ -43,7 +44,7 @@
                     <TextBlock Text="{Binding ColName}" FontSize="18" Margin="0 0 0 10"/>
 
                   <!-- ADDS NEW TASK BUTTON-->
-
+                  <Button Content="Add Task" Command="{Binding FirstColumn.Manager.AddNewTask}"/>
 
                   </StackPanel>
            
@@ -56,7 +57,10 @@
                                         Margin="0 0 0 5" 
                                         BorderThickness="1" 
                                         CornerRadius="4">
+
                                     <TextBlock Text="{Binding TaskName}"/>
+
+
                                 </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
