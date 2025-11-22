@@ -8,20 +8,17 @@
         Padding="10"
         Title="Cache - Download your brain for better context switching.">
 
-
   <DockPanel>
 
     <!-- TOP PANEL-->
-    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="10">
+    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="5" Margin="5">
       <Button Content="Add Task" Command="{Binding FirstColumn.Manager.AddNewTask}" />
       <Button Content="Add Column" Command="{Binding AddColumn}" />
     </StackPanel>
 
-
     <!-- COLUMNS PANEL-->
     <ScrollViewer HorizontalScrollBarVisibility="Auto">
     <ItemsControl ItemsSource="{Binding ColumnList}">
-
 
         <!-- SETS COLUMNS HORIZ-->
         <ItemsControl.ItemsPanel>
@@ -30,6 +27,7 @@
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>
 
+        <!-- A COLUMN-->
         <ItemsControl.ItemTemplate>
             <DataTemplate>
               <Border BorderBrush="Black" 
@@ -43,8 +41,14 @@
                   <StackPanel Margin="10" Orientation="Horizontal">
                     <TextBlock Text="{Binding ColName}" FontSize="18" Margin="0 0 0 10"/>
 
-                  <!-- ADDS NEW TASK BUTTON-->
-                  <Button Content="Add Task" Command="{Binding FirstColumn.Manager.AddNewTask}"/>
+                  <!-- ADDS NEW TASK BUTTON PER COLUMN-->
+                  <!-- <Button Content="Add Task" Command="{Binding Manager.AddNewTask}"/> -->
+
+                  <!-- ADDS REMOVE COLUMN BUTTON PER COL-->
+                       <Button Content="X" 
+                               Click="RemoveColumn_Click"
+                               IsVisible="{Binding Removable}" 
+                               />
 
                   </StackPanel>
            
@@ -59,7 +63,6 @@
                                         CornerRadius="4">
 
                                     <TextBlock Text="{Binding TaskName}"/>
-
 
                                 </Border>
                             </DataTemplate>

@@ -17,20 +17,10 @@ public partial class MainWindow : Window {
         this.DataContext = TaskBoard;
     }
 
-    private void AddTask(object? sender, RoutedEventArgs e) {
-        if (sender is Button btn) {
-            var col = btn.FindAncestorOfType<ColumnManager>();
-            if (col != null) {
-                col.Manager.AddNewTask();
-            }
-        }
+    /* Handles the removal of a column by passing the column to the parent board 
+     * which removes the column from its observable list */
+    private void RemoveColumn_Click(object sender, RoutedEventArgs e) {
+        if (sender is Button btn && btn.DataContext is ColumnManager col)
+            col.Parent?.RemoveColumn(col);
     }
-
-    // private async void AddColumn_Click(object? sender, RoutedEventArgs e) {
-    //     var dialog = new NamePrompt();
-    //     var result = await dialog.ShowDialog<string>(this);
-    //
-    //     if (!string.IsNullOrWhiteSpace(result))
-    //         TaskBoard.AddColumn(result);
-    // }
 }

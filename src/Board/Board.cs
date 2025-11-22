@@ -11,22 +11,25 @@ namespace App.Board {
 
         public Board() {
             ColumnList = new ObservableCollection<ColumnManager>();
-            AddTaskColumn();
+            AddColumn("Tasks");
             FirstColumn = ColumnList[0];
         }
 
-        /* Adds the default Task column to the UI*/
-        public void AddTaskColumn() {
-            ColumnManager col = new ColumnManager("Tasks");
-            ColumnList.Add(col);
+        // TODO: Change the "" and null check on name with correct handling
+        /* Help function for adding a new column to the UI*/
+        public void AddColumn(string colName="New Column") {
+            if (string.IsNullOrEmpty(colName)) colName = "New Column";
+            var col = new ColumnManager(colName, this); 
+            ColumnList.Add(col);            
             NumberOfColumns++;
         }
 
-        /* Help function for adding a new column to the UI*/
-        public void AddColumn(string colName) {
-            ColumnManager col = new ColumnManager("New Column");
-            ColumnList.Add(col);            
-            NumberOfColumns++;
+        /* Removes a column at a given index*/ 
+        public void RemoveColumn(ColumnManager col) {
+            if (col == FirstColumn) return;
+
+            ColumnList.Remove(col);
+            NumberOfColumns--;
         }
     }
 }

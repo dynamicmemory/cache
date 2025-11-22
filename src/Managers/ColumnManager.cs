@@ -1,18 +1,20 @@
+/* It wont compile using "using App.Board" So I had to use "App.Board.Board"*/
+
 namespace App.Managers {
 
     public class ColumnManager {
 
         public TaskManager Manager { get; set; }
         public string ColName { get; set; }
+        public App.Board.Board? Parent { get; set; }
 
-        public ColumnManager(string name) {
+        // Specifically used for remove button visibility for columns
+        public bool Removable => this != Parent?.FirstColumn;
+
+        public ColumnManager(string name, App.Board.Board parent) {
             Manager = new TaskManager();
             ColName = name;
-        }
-
-        // Set should just do this tho?
-        public void UpdateName() {
-
+            Parent = parent;
         }
     }
 }
