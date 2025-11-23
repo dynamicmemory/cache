@@ -39,7 +39,18 @@
                 
                   <!-- COLUMN HEADER-->
                   <StackPanel Margin="10" Orientation="Horizontal">
-                    <TextBlock Text="{Binding ColName}" FontSize="18" Margin="0 0 0 10"/>
+
+                    <Grid>
+                      <TextBlock Text="{Binding ColName}" 
+                                 IsVisible="{Binding IsNotEditing}"
+                                 PointerPressed="TextBlock_PointerPressed"
+                                 FontSize="18" Margin="0 0 0 10"/>
+                      <TextBox Text="{Binding ColName, Mode=TwoWay}"
+                               IsVisible="{Binding IsEditing}"
+                               LostFocus="TextBox_LostFocus"
+                               KeyDown="TextBox_KeyDown"/>
+                    </Grid>
+
 
                   <!-- ADDS NEW TASK BUTTON PER COLUMN-->
                   <!-- <Button Content="Add Task" Command="{Binding Manager.AddNewTask}"/> -->

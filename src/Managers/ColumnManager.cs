@@ -1,20 +1,51 @@
 /* It wont compile using "using App.Board" So I had to use "App.Board.Board"*/
+using System.ComponentModel;
 
 namespace App.Managers {
+    public class ColumnManager : INotifyPropertyChanged {
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-    public class ColumnManager {
+        private string _colName;
+        public string ColName {
+            get => _colName;
+            set {
+                if (_colName != value) {
+                    _colName = value;
+                    OnPropertyChanged(nameof(ColName));
+                }
+            }
+        }
 
-        public TaskManager Manager { get; set; }
-        public string ColName { get; set; }
-        public App.Board.Board? Parent { get; set; }
+        private bool _isEditing;
+        public bool IsEditing {
+            get => _isEditing;
+            set {
+                if (_isEditing != value) {
+                    _isEditing = value;
+                    OnPropertyChanged(nameof(IsEditing));
+                    OnPropertyChanged(nameof(IsNotEditing));
+                }
+            }
+        }
 
-        // Specifically used for remove button visibility for columns
-        public bool Removable => this != Parent?.FirstColumn;
+        public bool IsNotEditing => !_isEditing;
+
+        public TaskManager Manager { get; }
+
+        public App.Board.Board? ParentBoard { get; }
+
+        // Controls X button visibility
+        public bool Removable => this != ParentBoard?.FirstColumn;
+        public bool NameEditable => this != ParentBoard?.FirstColumn;
 
         public ColumnManager(string name, App.Board.Board parent) {
             Manager = new TaskManager();
-            ColName = name;
-            Parent = parent;
+            _colName = name;
+            ParentBoard = parent;
+        }
+
+        protected void OnPropertyChanged(string propertyName) {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
