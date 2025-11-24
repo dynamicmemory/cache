@@ -71,9 +71,14 @@
                                         Padding="5" 
                                         Margin="0 0 0 5" 
                                         BorderThickness="1" 
-                                        CornerRadius="4">
+                                        CornerRadius="4"
+                                        Width="200"
+                                        Height="100"
+                                        Background="LightGray"
+                                        PointerPressed="TaskCard_Pressed">
 
-                                    <TextBlock Text="{Binding TaskName}"/>
+                                    <TextBlock Text="{Binding TaskName}"
+                                               TextWrapping="Wrap"/> 
 
                                 </Border>
                             </DataTemplate>

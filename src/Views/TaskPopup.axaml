@@ -1,0 +1,24 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:models="clr-namespace:App.Models"
+        x:Class="App.Views.TaskPopup"
+        x:DataType="models:TaskCard"
+        Width="300"
+        Height="200"
+        Title="Task Details"
+        WindowStartupLocation="CenterOwner"
+        >
+
+  <StackPanel Margin="10" Spacing="10">
+    
+    <TextBlock Text="Task Title" FontWeight="Bold"/>
+    <TextBox Text="{Binding TaskName, Mode=TwoWay}" Name="TitleBox"/>
+
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="5">
+      <Button Content="Save" Click="Save_Click"/>
+      <Button Content="Cancel" Click="Cancel_Click"/>
+    </StackPanel>
+
+  </StackPanel>
+
+</Window>

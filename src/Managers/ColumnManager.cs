@@ -6,6 +6,8 @@ namespace App.Managers {
         public event PropertyChangedEventHandler? PropertyChanged;
 
         private string _colName;
+        private bool _isEditing;
+
         public string ColName {
             get => _colName;
             set {
@@ -16,7 +18,6 @@ namespace App.Managers {
             }
         }
 
-        private bool _isEditing;
         public bool IsEditing {
             get => _isEditing;
             set {
@@ -28,11 +29,9 @@ namespace App.Managers {
             }
         }
 
-        public bool IsNotEditing => !_isEditing;
-
         public TaskManager Manager { get; }
-
         public App.Board.Board? ParentBoard { get; }
+        public bool IsNotEditing => !_isEditing;
 
         // Controls X button visibility
         public bool Removable => this != ParentBoard?.FirstColumn;
