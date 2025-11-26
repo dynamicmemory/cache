@@ -19,6 +19,7 @@ public partial class MainWindow : Window {
         this.DataContext = TaskBoard;
     }
 
+    // ------- CODE PRETAINING TO COLUMNS SPECIFICALLY -------------------
     /* Handles the removal of a column by passing the column to the parent board 
      * which removes the column from its observable list */
     private async void RemoveColumn_Click(object sender, RoutedEventArgs e) {
@@ -34,7 +35,6 @@ public partial class MainWindow : Window {
         }
     }
 
-    // Code pretaining to the column name editing in the main window 
     private void TextBlock_PointerPressed(object? sender, PointerPressedEventArgs e) {
         if (sender is TextBlock tb && 
             tb.DataContext is ColumnManager col && 
@@ -54,6 +54,7 @@ public partial class MainWindow : Window {
         }
     }
 
+    // -------------- CODE PRETAINING TO TASKCARDS SPECIFICALLY ----------
     // Code pretaining to the taskcard editing in the main window 
     private async void TaskCard_Pressed(object? sender, PointerPressedEventArgs e) {
         if (sender is Border b && b.DataContext is TaskCard task) {
@@ -61,4 +62,6 @@ public partial class MainWindow : Window {
             await popup.ShowDialog<bool>(this);
         }
     }
+
+    // TODO: ADD ENTER CONFIRMS TASKCARD CHANGES IN THE POPUP
 }

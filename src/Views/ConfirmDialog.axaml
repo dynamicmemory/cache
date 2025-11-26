@@ -11,8 +11,8 @@
   <StackPanel Margin="15" Spacing="10">
     <TextBlock Text="{Binding Message}" TextWrapping="Wrap"/>
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10">
-      <Button Content="Cancel" Click="Cancel_Click"/>
       <Button Content="Ok" Click="Ok_Click"/>
+      <Button Content="Cancel" Click="Cancel_Click"/>
     </StackPanel>
   </StackPanel>
 </Window>

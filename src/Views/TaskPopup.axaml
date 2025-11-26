@@ -15,6 +15,11 @@
     <TextBox Text="{Binding TaskName, Mode=TwoWay}" Name="TitleBox"/>
 
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="5">
+      <ComboBox SelectedItem="{Binding TaskColour, Mode=TwoWay}">       
+        <ComboBoxItem Content="#FFFFFF" />
+        <ComboBoxItem Content="#FFDEFF" />
+        <ComboBoxItem Content="#FF0000" />
+      </ComboBox>
       <Button Content="Save" Click="Save_Click"/>
       <Button Content="Cancel" Click="Cancel_Click"/>
     </StackPanel>

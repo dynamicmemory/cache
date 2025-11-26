@@ -74,7 +74,7 @@
                                         CornerRadius="4"
                                         Width="200"
                                         Height="100"
-                                        Background="LightGray"
+                                        Background="{Binding TaskColour}"
                                         PointerPressed="TaskCard_Pressed">
 
                                     <TextBlock Text="{Binding TaskName}"
