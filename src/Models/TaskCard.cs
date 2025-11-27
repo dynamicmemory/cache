@@ -46,6 +46,7 @@ namespace App.Models {
         // public Color[] AvailableColoursInstance => AvailableColours;
 
         public bool TaskState { get; set; }         // May remove
+        public string[] AvailableColours { get; } = new string[] { "#FFFFFF", "#FFDEFF", "#FF0000" };
 
     // ===========================                  ==========================
         /* Constructor */

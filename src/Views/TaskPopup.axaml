@@ -1,6 +1,7 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:models="clr-namespace:App.Models"
+        xmlns:helpers="clr-namespace:App.Helpers"
         x:Class="App.Views.TaskPopup"
         x:DataType="models:TaskCard"
         Width="300"
@@ -9,17 +10,18 @@
         WindowStartupLocation="CenterOwner"
         >
 
+  <Window.Resources>
+    <helpers:StringToBrushConverter x:Key="StringToBrush"/>
+  </Window.Resources>
+
   <StackPanel Margin="10" Spacing="10">
     
     <TextBlock Text="Task Title" FontWeight="Bold"/>
     <TextBox Text="{Binding TaskName, Mode=TwoWay}" Name="TitleBox"/>
 
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="5">
-      <ComboBox SelectedItem="{Binding TaskColour, Mode=TwoWay}">       
-        <ComboBoxItem Content="#FFFFFF" />
-        <ComboBoxItem Content="#FFDEFF" />
-        <ComboBoxItem Content="#FF0000" />
-      </ComboBox>
+      <ComboBox ItemsSource="{Binding AvailableColours}" 
+                SelectedItem="{Binding TaskColour, Mode=TwoWay}"/>
       <Button Content="Save" Click="Save_Click"/>
       <Button Content="Cancel" Click="Cancel_Click"/>
     </StackPanel>
