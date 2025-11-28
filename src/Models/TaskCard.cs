@@ -46,7 +46,19 @@ namespace App.Models {
         // public Color[] AvailableColoursInstance => AvailableColours;
 
         public bool TaskState { get; set; }         // May remove
-        public string[] AvailableColours { get; } = new string[] { "#FFFFFF", "#FFDEFF", "#FF0000" };
+        // TODO: Turn this into an enum 
+        public string[] AvailableColours { get; } = new string[] { 
+            "#FFFFFF", 
+            "#FFDEFF", // light pink
+            "#9C27F5",// purple
+            "#F59C27", // Orange
+            "#27F59C",  // bulma
+            "#80F527",  // Green
+            "#E7F527", // Yellow
+            "#27E7F5", // Trunks cyan
+            "#F53527", // Red 
+
+        };
 
     // ===========================                  ==========================
         /* Constructor */

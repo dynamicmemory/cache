@@ -4,8 +4,8 @@
         xmlns:helpers="clr-namespace:App.Helpers"
         x:Class="App.Views.TaskPopup"
         x:DataType="models:TaskCard"
-        Width="300"
-        Height="200"
+        Width="500"
+        Height="500"
         Title="Task Details"
         WindowStartupLocation="CenterOwner"
         >
