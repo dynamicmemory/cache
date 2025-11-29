@@ -46,5 +46,10 @@ namespace App.Managers {
         protected void OnPropertyChanged(string propertyName) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        // TODO: I need to get the task thats being moved... I htink I neeed to destroy the task manager.
+        // public void MoveTask(TaskManager manager, int idx) {
+        //     manager.Tasks
+        // }
     }
 }
