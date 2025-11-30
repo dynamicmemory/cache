@@ -16,88 +16,84 @@
 
   <DockPanel>
 
-    <!-- TOP PANEL-->
+    <!--TOP PANEL-->
+
     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="5" Margin="5">
-      <Button Content="Add Task" Command="{Binding FirstColumn.Manager.AddNewTask}" />
+      <Button Content="Add Task" Command="{Binding FirstColumn.AddNewTask}" />
       <Button Content="Add Column" Command="{Binding AddColumn}" />
     </StackPanel>
 
+    <!--BINDS THE COLUMN LIST FROM BOARD-->
+
     <!-- COLUMNS PANEL-->
+
     <ScrollViewer HorizontalScrollBarVisibility="Auto">
     <ItemsControl ItemsSource="{Binding ColumnList}">
 
-        <!-- SETS COLUMNS HORIZ-->
-        <ItemsControl.ItemsPanel>
-            <ItemsPanelTemplate>
-                <StackPanel Orientation="Horizontal"/>
-            </ItemsPanelTemplate>
-        </ItemsControl.ItemsPanel>
+      <!--SETS COLUMNS HORIZONTAL-->
 
-        <!-- A COLUMN-->
-        <ItemsControl.ItemTemplate>
-            <DataTemplate>
-              <Border BorderBrush="Black" 
-                      Padding="5" 
-                      Margin="0 0 10 0" 
-                      BorderThickness="1" 
-                      CornerRadius="4">
-                <StackPanel Margin="10" Width="200">
+      <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <StackPanel Orientation="Horizontal"/>
+        </ItemsPanelTemplate>
+      </ItemsControl.ItemsPanel>
+
+      <!--A COLUMN-->
+
+      <ItemsControl.ItemTemplate>
+        <DataTemplate>
+          <Border BorderBrush="Black" Padding="5" Margin="0 0 10 0" 
+                  BorderThickness="1" CornerRadius="4" DragDrop.AllowDrop="True">
+            <StackPanel Margin="10" Width="200" DragDrop.AllowDrop="True"
+                        Background="Transparent" MinHeight="300">
                 
-                  <!-- COLUMN HEADER-->
-                  <StackPanel Margin="10" Orientation="Horizontal">
+              <!--COLUMN HEADER-->
 
-                    <Grid>
-                      <TextBlock Text="{Binding ColName}" 
-                                 IsVisible="{Binding IsNotEditing}"
-                                 PointerPressed="TextBlock_PointerPressed"
-                                 FontSize="18" Margin="0 0 0 10"/>
-                      <TextBox Text="{Binding ColName, Mode=TwoWay}"
-                               IsVisible="{Binding IsEditing}"
-                               LostFocus="TextBox_LostFocus"
-                               KeyDown="TextBox_KeyDown"/>
-                    </Grid>
+              <StackPanel Margin="10" Orientation="Horizontal">
 
+                <Grid>
+                  <TextBlock Text="{Binding ColName}" 
+                             IsVisible="{Binding IsNotEditing}"
+                             PointerPressed="TextBlock_PointerPressed"
+                             FontSize="18" Margin="0 0 0 10"/>
 
-                  <!-- ADDS NEW TASK BUTTON PER COLUMN-->
-                  <!-- <Button Content="Add Task" Command="{Binding Manager.AddNewTask}"/> -->
+                  <TextBox Text="{Binding ColName, Mode=TwoWay}"
+                           IsVisible="{Binding IsEditing}"
+                           LostFocus="TextBox_LostFocus" 
+                           KeyDown="TextBox_KeyDown"/>
+                </Grid>
 
-                  <!-- ADDS REMOVE COLUMN BUTTON PER COL-->
-                       <Button Content="X" 
-                               Click="RemoveColumn_Click"
-                               IsVisible="{Binding Removable}" 
-                               />
+                <!--Remove column button-->
 
-                  </StackPanel>
+                <Button Content="X" Click="RemoveColumn_Click"
+                        IsVisible="{Binding Removable}"/>
+
+              </StackPanel>
            
-                    <!-- TASK NAMES-->
-                    <ItemsControl ItemsSource="{Binding Manager.Tasks}"> 
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border BorderBrush="Black" 
-                                        Padding="5" 
-                                        Margin="0 0 0 5" 
-                                        BorderThickness="1" 
-                                        CornerRadius="4"
-                                        Width="200"
-                                        Height="100"
-                                        Background="{Binding TaskColour, Converter={StaticResource StringToBrush}}"
-                                        PointerPressed="TaskCard_Pressed">
+              <!--TASK NAMES-->
+                <ItemsControl ItemsSource="{Binding TaskList}"> 
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <Border BorderBrush="Black" Padding="5" Margin="0 0 0 5" 
+                              BorderThickness="1" CornerRadius="4" Width="200"
+                              Height="100" PointerPressed="TaskCard_PointerPressed"
+                              Background="{Binding TaskColour, 
+                              Converter={StaticResource StringToBrush}}">
 
-                                    <TextBlock Text="{Binding TaskName}"
-                                               TextWrapping="Wrap"/> 
+                        <TextBlock Text="{Binding TaskName}" TextWrapping="Wrap"/> 
 
-                                </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                      </Border>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
 
-                </StackPanel>
-              </Border>
-            </DataTemplate>
+              </StackPanel>
+            </Border>
+          </DataTemplate>
         </ItemsControl.ItemTemplate>
 
-    </ItemsControl>
+      </ItemsControl>
     </ScrollViewer>
-    </DockPanel>
+  </DockPanel>
 
 </Window>

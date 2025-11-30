@@ -1,4 +1,4 @@
-/* Defines a column object (Current not in use, but should be when refactor)*/
+/*- Defines a column object (Current not in use, but should be when refactor)*/
 // using System.Collections.Generic;
 //
 // namespace App.Models {

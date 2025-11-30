@@ -31,5 +31,19 @@ namespace App.Board {
             ColumnList.Remove(col);
             NumberOfColumns--;
         }
+
+        public void MoveColumn(ColumnManager col, int idx) {
+            if (col == null) return;
+
+            var oldidx = ColumnList.IndexOf(col);
+            if (oldidx == -1) return;
+
+            if (idx < 0) idx = 0;
+            if (idx >= ColumnList.Count) idx = ColumnList.Count - 1;
+
+            if (oldidx == idx) return;
+
+            ColumnList.Move(oldidx, idx);
+        }
     }
 }

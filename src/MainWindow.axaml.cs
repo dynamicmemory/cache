@@ -1,13 +1,13 @@
-using System;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Input;
-using Avalonia;
 using Avalonia.VisualTree;
 using App.Board;
 using App.Managers;
 using App.Models;
 using App.Views;
+using System.Linq;
+using System;
 
 namespace src;
 
@@ -18,6 +18,8 @@ public partial class MainWindow : Window {
     public MainWindow() {
         TaskBoard = new Board();
         InitializeComponent();
+        AddHandler(DragDrop.DragOverEvent, OnDragOver);
+        AddHandler(DragDrop.DropEvent, OnDrop);
 
         this.DataContext = TaskBoard;
     }
@@ -63,11 +65,80 @@ public partial class MainWindow : Window {
     //       a full rewrite once we get it up and running... this will get temporarily
     //       nasty looking 
     
-    private async void TaskCard_Pressed(object? sender, PointerPressedEventArgs e) {
-        if (sender is Border b && b.DataContext is TaskCard t) {
-            var popup = new TaskPopup(t);
-            await popup.ShowDialog<bool>(this);
+    private TaskCard? _draggingCard;
+    private ColumnManager? _dragSourceColumn;
+    private Border? _dragVisual;
+
+
+    private async void TaskCard_PointerPressed(object? sender, PointerPressedEventArgs e) {
+        if (!e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
+            return;
+        if (sender is not Avalonia.Controls.Control control) return;
+
+        if (control.DataContext is not TaskCard task) return;
+
+        var ancestor = control.GetVisualAncestors()
+            .OfType<Avalonia.Controls.Control>()
+            .FirstOrDefault(c => c.DataContext is ColumnManager);
+
+        var sourceColumn = ancestor?.DataContext as ColumnManager;
+
+        _draggingCard = task;
+        _dragSourceColumn = sourceColumn;
+
+        var data = new DataObject();
+        data.Set("task-card", task);
+
+        try {
+            await DragDrop.DoDragDrop(e, data, DragDropEffects.Move);
+        }
+        finally {
+            // clear local dragging state after drag done
+            _draggingCard = null;
+            _dragSourceColumn = null;
         }
     }
-    // TODO: ADD ENTER CONFIRMS TASKCARD CHANGES IN THE POPUP
+
+    private void OnDragOver(object? sender, DragEventArgs e) {
+        if (e.Data.Contains("task-card"))
+            e.DragEffects = DragDropEffects.Move;
+        else
+            e.DragEffects = DragDropEffects.None;
+
+        e.Handled = true;
+    }
+
+
+    private void OnDrop(object? sender, DragEventArgs e) {
+        if (!e.Data.Contains("task-card")) return;
+
+        var dropped = e.Data.Get("task-card") as TaskCard;
+        if (dropped == null) return;
+
+        var control = e.Source as Control;
+        var columnControl = control?
+            .GetVisualAncestors()
+            .OfType<Control>()
+            .FirstOrDefault(c => c.DataContext is ColumnManager);
+
+        if (columnControl?.DataContext is not ColumnManager targetColumn)
+            return;
+
+        Console.WriteLine("DROP TARGET: " + targetColumn.ColName);
+
+        // Same column
+        if (_dragSourceColumn != null && _dragSourceColumn == targetColumn) {
+            var currentIndex = targetColumn.TaskList.IndexOf(dropped);
+            var lastIndex = targetColumn.TaskList.Count - 1;
+
+            if (currentIndex != lastIndex) {
+                targetColumn.MoveTask(dropped, lastIndex);
+            }
+        }
+        else {
+            _dragSourceColumn?.RemoveTask(dropped);
+            targetColumn.InsertTask(dropped, targetColumn.TaskList.Count);
+        }
+        e.Handled = true;
+    }
 }

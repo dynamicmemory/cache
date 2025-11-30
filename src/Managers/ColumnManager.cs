@@ -1,5 +1,7 @@
 /* It wont compile using "using App.Board" So I had to use "App.Board.Board"*/
 using System.ComponentModel;
+using App.Models;
+using System.Collections.ObjectModel; 
 
 namespace App.Managers {
     public class ColumnManager : INotifyPropertyChanged {
@@ -29,7 +31,9 @@ namespace App.Managers {
             }
         }
 
-        public TaskManager Manager { get; }
+        // public TaskManager Manager { get; }
+        public ObservableCollection<TaskCard> TaskList { get; }
+        public int NumberOfTasks { get; set; }
         public App.Board.Board? ParentBoard { get; }
         public bool IsNotEditing => !_isEditing;
 
@@ -38,18 +42,46 @@ namespace App.Managers {
         public bool NameEditable => this != ParentBoard?.FirstColumn;
 
         public ColumnManager(string name, App.Board.Board parent) {
-            Manager = new TaskManager();
+            TaskList = new ObservableCollection<TaskCard>();
+            // Manager = new TaskManager();
             _colName = name;
             ParentBoard = parent;
+        }
+
+        public void AddNewTask() {
+            TaskCard tc = new TaskCard($"New Task Added {NumberOfTasks}");
+            TaskList.Add(tc);
+            NumberOfTasks++;
+        }
+
+        /* For moving a card within its own column*/
+        public void MoveTask(TaskCard card, int idx) {
+            if (card == null) return;
+
+            var oldidx = TaskList.IndexOf(card);
+            if (oldidx == -1) return;
+
+            if (idx < 0) idx = 0;
+            if (idx >= TaskList.Count) idx = idx - 1;
+
+            if (oldidx == idx) return;
+
+            TaskList.Move(oldidx, idx);
+            
+        }
+        
+        public void RemoveTask(TaskCard card) {
+            TaskList.Remove(card);
+        }
+
+        public void InsertTask(TaskCard card, int idx) {
+            TaskList.Insert(idx, card); 
         }
 
         protected void OnPropertyChanged(string propertyName) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        // TODO: I need to get the task thats being moved... I htink I neeed to destroy the task manager.
-        // public void MoveTask(TaskManager manager, int idx) {
-        //     manager.Tasks
-        // }
+
     }
 }
