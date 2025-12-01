@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Visuals;
 using Avalonia.Interactivity;
 using Avalonia.Input;
 using Avalonia.VisualTree;
@@ -69,26 +70,42 @@ public partial class MainWindow : Window {
     private ColumnManager? _dragSourceColumn;
     private Border? _dragVisual;
 
+    /* Handles title of card clicks to open up edit popup*/
+    private async void TaskName_PointerPressed(object? sender, PointerPressedEventArgs e) {
+        // if (!e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
+        //     return;
+        e.Handled = true;
+        if (sender is not Control control) return;
 
+        if (control.DataContext is not TaskCard task) return;
+
+        var popup = new TaskPopup(task);
+        await popup.ShowDialog<bool>(this);
+
+        
+    }
+
+    /* Mostly handles the starting of a click and drag on a task card*/
     private async void TaskCard_PointerPressed(object? sender, PointerPressedEventArgs e) {
         if (!e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
             return;
-        if (sender is not Avalonia.Controls.Control control) return;
+        if (sender is not Control control) return;
 
         if (control.DataContext is not TaskCard task) return;
 
         var ancestor = control.GetVisualAncestors()
-            .OfType<Avalonia.Controls.Control>()
-            .FirstOrDefault(c => c.DataContext is ColumnManager);
+                              .OfType<Control>()
+                              .FirstOrDefault(c => c.DataContext is ColumnManager);
 
         var sourceColumn = ancestor?.DataContext as ColumnManager;
 
         _draggingCard = task;
         _dragSourceColumn = sourceColumn;
 
+        // TODO: Change to DataTranfer() once fully working
         var data = new DataObject();
         data.Set("task-card", task);
-
+         
         try {
             await DragDrop.DoDragDrop(e, data, DragDropEffects.Move);
         }
@@ -98,7 +115,7 @@ public partial class MainWindow : Window {
             _dragSourceColumn = null;
         }
     }
-
+    /*  Keeps track of the item being drag for UI feedback*/
     private void OnDragOver(object? sender, DragEventArgs e) {
         if (e.Data.Contains("task-card"))
             e.DragEffects = DragDropEffects.Move;
@@ -108,14 +125,16 @@ public partial class MainWindow : Window {
         e.Handled = true;
     }
 
-
+    /* Handles the dropping of a taskcard after its been clicked and dragged*/
     private void OnDrop(object? sender, DragEventArgs e) {
+        
         if (!e.Data.Contains("task-card")) return;
-
+        // the task card we are dropping 
         var dropped = e.Data.Get("task-card") as TaskCard;
         if (dropped == null) return;
 
         var control = e.Source as Control;
+        // Find the column underneath the mouse
         var columnControl = control?
             .GetVisualAncestors()
             .OfType<Control>()
@@ -124,21 +143,34 @@ public partial class MainWindow : Window {
         if (columnControl?.DataContext is not ColumnManager targetColumn)
             return;
 
-        Console.WriteLine("DROP TARGET: " + targetColumn.ColName);
+        // Console.WriteLine("DROP TARGET: " + targetColumn.ColName);
 
-        // Same column
-        if (_dragSourceColumn != null && _dragSourceColumn == targetColumn) {
-            var currentIndex = targetColumn.TaskList.IndexOf(dropped);
-            var lastIndex = targetColumn.TaskList.Count - 1;
+        // Find the task under the mouse if there is one 
+        var taskControl = control?
+            .GetVisualAncestors()
+            .OfType<Control>()
+            .FirstOrDefault(c => c.DataContext is TaskCard);
 
-            if (currentIndex != lastIndex) {
-                targetColumn.MoveTask(dropped, lastIndex);
-            }
+        var targetTask = taskControl?.DataContext as TaskCard;
+        int insertIdx = targetColumn.TaskList.Count;
+
+        if (targetTask != null) 
+            insertIdx = targetColumn.TaskList.IndexOf(targetTask);
+
+        // If the card is dropped in the same column, reorder accordingly
+        // if (_dragSourceColumn != null && _dragSourceColumn == targetColumn) {
+        if (_dragSourceColumn == targetColumn && targetTask != null) {
+            var oldIdx = targetColumn.TaskList.IndexOf(dropped);
+
+            if (oldIdx == insertIdx) return;
+
+            targetColumn.MoveTask(dropped, insertIdx);
+            // if (insertIdx > oldIdx) 
+            //     insertIdx--;
         }
-        else {
-            _dragSourceColumn?.RemoveTask(dropped);
-            targetColumn.InsertTask(dropped, targetColumn.TaskList.Count);
-        }
+        _dragSourceColumn?.RemoveTask(dropped);
+        targetColumn.InsertTask(dropped, insertIdx);
+
         e.Handled = true;
     }
 }

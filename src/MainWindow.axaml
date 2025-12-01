@@ -74,15 +74,28 @@
                 <ItemsControl ItemsSource="{Binding TaskList}"> 
                   <ItemsControl.ItemTemplate>
                     <DataTemplate>
+
                       <Border BorderBrush="Black" Padding="5" Margin="0 0 0 5" 
                               BorderThickness="1" CornerRadius="4" Width="200"
                               Height="100" PointerPressed="TaskCard_PointerPressed"
                               Background="{Binding TaskColour, 
                               Converter={StaticResource StringToBrush}}">
 
-                        <TextBlock Text="{Binding TaskName}" TextWrapping="Wrap"/> 
+                        <TextBlock Text="{Binding TaskName}" 
+                                   TextWrapping="Wrap"
+                                   Cursor="Hand"
+                                   PointerPressed="TaskName_PointerPressed">
+                          <TextBlock.Styles>
+                            <Style Selector="TextBlock:pointerover">
+                              <Setter Property="TextDecorations" Value="Underline"/>
+                            </Style>
+                          </TextBlock.Styles>
+                        </TextBlock>
 
                       </Border>
+
+
+
                     </DataTemplate>
                   </ItemsControl.ItemTemplate>
                 </ItemsControl>
