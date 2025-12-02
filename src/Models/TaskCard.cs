@@ -62,6 +62,9 @@ namespace App.Models {
 
     // ===========================                  ==========================
         /* Constructor */
+        public TaskCard() {
+    
+        }
         public TaskCard(string name, string desc="") {
             _taskName = name;
             TaskDescription = desc;

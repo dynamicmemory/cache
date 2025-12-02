@@ -1,0 +1,173 @@
+{
+  "ColumnList": [
+    {
+      "ColName": "Tasks",
+      "IsEditing": false,
+      "TaskList": [
+        {
+          "TaskName": "Did this save and the colour change?",
+          "TaskDescription": "",
+          "TaskColour": "#9C27F5",
+          "TaskState": false,
+          "AvailableColours": [
+            "#FFFFFF",
+            "#FFDEFF",
+            "#9C27F5",
+            "#F59C27",
+            "#27F59C",
+            "#80F527",
+            "#E7F527",
+            "#27E7F5",
+            "#F53527"
+          ]
+        },
+        {
+          "TaskName": "New Task Added 4",
+          "TaskDescription": "",
+          "TaskColour": "#FFDEFF",
+          "TaskState": false,
+          "AvailableColours": [
+            "#FFFFFF",
+            "#FFDEFF",
+            "#9C27F5",
+            "#F59C27",
+            "#27F59C",
+            "#80F527",
+            "#E7F527",
+            "#27E7F5",
+            "#F53527"
+          ]
+        }
+      ],
+      "NumberOfTasks": 5,
+      "IsNotEditing": true,
+      "Removable": false,
+      "NameEditable": false
+    },
+    {
+      "ColName": "New Column",
+      "IsEditing": false,
+      "TaskList": [
+        {
+          "TaskName": "New Task Added 2",
+          "TaskDescription": "",
+          "TaskColour": "#FFDEFF",
+          "TaskState": false,
+          "AvailableColours": [
+            "#FFFFFF",
+            "#FFDEFF",
+            "#9C27F5",
+            "#F59C27",
+            "#27F59C",
+            "#80F527",
+            "#E7F527",
+            "#27E7F5",
+            "#F53527"
+          ]
+        }
+      ],
+      "NumberOfTasks": 0,
+      "IsNotEditing": true,
+      "Removable": true,
+      "NameEditable": true
+    },
+    {
+      "ColName": "New Column",
+      "IsEditing": false,
+      "TaskList": [],
+      "NumberOfTasks": 0,
+      "IsNotEditing": true,
+      "Removable": true,
+      "NameEditable": true
+    },
+    {
+      "ColName": "New Column",
+      "IsEditing": false,
+      "TaskList": [
+        {
+          "TaskName": "New Task Added 3",
+          "TaskDescription": "",
+          "TaskColour": "#FFDEFF",
+          "TaskState": false,
+          "AvailableColours": [
+            "#FFFFFF",
+            "#FFDEFF",
+            "#9C27F5",
+            "#F59C27",
+            "#27F59C",
+            "#80F527",
+            "#E7F527",
+            "#27E7F5",
+            "#F53527"
+          ]
+        },
+        {
+          "TaskName": "New Task Added 0",
+          "TaskDescription": "",
+          "TaskColour": "#FFDEFF",
+          "TaskState": false,
+          "AvailableColours": [
+            "#FFFFFF",
+            "#FFDEFF",
+            "#9C27F5",
+            "#F59C27",
+            "#27F59C",
+            "#80F527",
+            "#E7F527",
+            "#27E7F5",
+            "#F53527"
+          ]
+        }
+      ],
+      "NumberOfTasks": 0,
+      "IsNotEditing": true,
+      "Removable": true,
+      "NameEditable": true
+    }
+  ],
+  "FirstColumn": {
+    "ColName": "Tasks",
+    "IsEditing": false,
+    "TaskList": [
+      {
+        "TaskName": "Did this save and the colour change?",
+        "TaskDescription": "",
+        "TaskColour": "#9C27F5",
+        "TaskState": false,
+        "AvailableColours": [
+          "#FFFFFF",
+          "#FFDEFF",
+          "#9C27F5",
+          "#F59C27",
+          "#27F59C",
+          "#80F527",
+          "#E7F527",
+          "#27E7F5",
+          "#F53527"
+        ]
+      },
+      {
+        "TaskName": "New Task Added 4",
+        "TaskDescription": "",
+        "TaskColour": "#FFDEFF",
+        "TaskState": false,
+        "AvailableColours": [
+          "#FFFFFF",
+          "#FFDEFF",
+          "#9C27F5",
+          "#F59C27",
+          "#27F59C",
+          "#80F527",
+          "#E7F527",
+          "#27E7F5",
+          "#F53527"
+        ]
+      }
+    ],
+    "NumberOfTasks": 5,
+    "IsNotEditing": true,
+    "Removable": false,
+    "NameEditable": false
+  },
+  "NumberOfColumns": 4
+}

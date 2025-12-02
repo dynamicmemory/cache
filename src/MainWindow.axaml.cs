@@ -17,7 +17,8 @@ public partial class MainWindow : Window {
     public Board TaskBoard { get; }
 
     public MainWindow() {
-        TaskBoard = new Board();
+        // TaskBoard = new Board();
+        TaskBoard = JsonDB.LoadBoard();
         InitializeComponent();
         AddHandler(DragDrop.DragOverEvent, OnDragOver);
         AddHandler(DragDrop.DropEvent, OnDrop);
@@ -80,9 +81,9 @@ public partial class MainWindow : Window {
         if (control.DataContext is not TaskCard task) return;
 
         var popup = new TaskPopup(task);
-        await popup.ShowDialog<bool>(this);
-
-        
+        var result = await popup.ShowDialog<bool>(this);
+        if (result)
+            JsonDB.SaveBoard(TaskBoard);
     }
 
     /* Mostly handles the starting of a click and drag on a task card*/

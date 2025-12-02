@@ -5,14 +5,17 @@ namespace App.Board {
 
     public class Board {
 
-        public ObservableCollection<ColumnManager> ColumnList { get; set; }
+        public ObservableCollection<ColumnManager> ColumnList { get; set; } = 
+            new ObservableCollection<ColumnManager>();
         public ColumnManager FirstColumn { get; set; }
         public int NumberOfColumns { get; set; }
 
         public Board() {
-            ColumnList = new ObservableCollection<ColumnManager>();
+            // ColumnList = new ObservableCollection<ColumnManager>();
             AddColumn("Tasks");
             FirstColumn = ColumnList[0];
+            NumberOfColumns = 0;
+            // FirstColumn = null;
         }
 
         // TODO: Change the "" and null check on name with correct handling
@@ -22,6 +25,7 @@ namespace App.Board {
             var col = new ColumnManager(colName, this); 
             ColumnList.Add(col);            
             NumberOfColumns++;
+            JsonDB.SaveBoard(this);
         }
 
         /* Removes a column at a given index*/ 
@@ -30,6 +34,7 @@ namespace App.Board {
 
             ColumnList.Remove(col);
             NumberOfColumns--;
+            JsonDB.SaveBoard(this);
         }
 
         public void MoveColumn(ColumnManager col, int idx) {
@@ -44,6 +49,7 @@ namespace App.Board {
             if (oldidx == idx) return;
 
             ColumnList.Move(oldidx, idx);
+            JsonDB.SaveBoard(this);
         }
     }
 }

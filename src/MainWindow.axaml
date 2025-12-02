@@ -52,10 +52,19 @@
               <StackPanel Margin="10" Orientation="Horizontal">
 
                 <Grid>
+
                   <TextBlock Text="{Binding ColName}" 
                              IsVisible="{Binding IsNotEditing}"
                              PointerPressed="TextBlock_PointerPressed"
-                             FontSize="18" Margin="0 0 0 10"/>
+                             Cursor="Hand"
+                             FontSize="18" Margin="0 0 0 10">
+                    <TextBlock.Styles>
+                      <Style Selector="TextBlock:pointerover">
+                        <Setter Property="TextDecorations" Value="Underline"/>
+                      </Style>
+                    </TextBlock.Styles>
+
+                  </TextBlock>
 
                   <TextBox Text="{Binding ColName, Mode=TwoWay}"
                            IsVisible="{Binding IsEditing}"
@@ -78,12 +87,12 @@
                       <Border BorderBrush="Black" Padding="5" Margin="0 0 0 5" 
                               BorderThickness="1" CornerRadius="4" Width="200"
                               Height="100" PointerPressed="TaskCard_PointerPressed"
+                              Cursor="Hand"
                               Background="{Binding TaskColour, 
                               Converter={StaticResource StringToBrush}}">
 
                         <TextBlock Text="{Binding TaskName}" 
                                    TextWrapping="Wrap"
-                                   Cursor="Hand"
                                    PointerPressed="TaskName_PointerPressed">
                           <TextBlock.Styles>
                             <Style Selector="TextBlock:pointerover">
@@ -93,8 +102,6 @@
                         </TextBlock>
 
                       </Border>
-
-
 
                     </DataTemplate>
                   </ItemsControl.ItemTemplate>
