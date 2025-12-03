@@ -8,21 +8,18 @@ namespace App.Managers {
     public class ColumnManager : INotifyPropertyChanged {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private string _colName;
+        private string _colName = "New Column";
         private bool _isEditing;
 
-        public string ColName {
-            get => _colName;
-            set {
-                if (_colName != value) {
-                    _colName = value;
-                    OnPropertyChanged(nameof(ColName));
+        public string ColName { get => _colName;
+            set { if (_colName != value) {
+                _colName = value;
+                OnPropertyChanged(nameof(ColName));
                 }
             }
         }
 
-        public bool IsEditing {
-            get => _isEditing;
+        public bool IsEditing { get => _isEditing;
             set {
                 if (_isEditing != value) {
                     _isEditing = value;
@@ -37,7 +34,7 @@ namespace App.Managers {
         public int NumberOfTasks { get; set; }
         // public int OrderIndex{ get; set; }        // Not needed till SQL db
         [JsonIgnore]
-        public App.Board.Board? ParentBoard { get; set; }
+        public App.Board.Board ParentBoard { get; set; }
         public bool IsNotEditing => !_isEditing;
 
 

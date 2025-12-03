@@ -1,3 +1,7 @@
+// TODO: Currently I save the board to json on load so that it resaves the loaded 
+//       state. This seems broken, and also on a project blow up it wipes the json 
+//       fix
+
 using Avalonia.Controls;
 using Avalonia.Visuals;
 using Avalonia.Interactivity;
@@ -38,7 +42,10 @@ public partial class MainWindow : Window {
             var dialog = new ConfirmDialog($"Delete column '{col.ColName}'?");
             var result = await dialog.ShowDialog<bool>(this);
 
-            if (result) col.ParentBoard?.RemoveColumn(col);
+            // Remove the column from the board 
+            if (result) {
+                col.ParentBoard?.RemoveColumn(col);
+            }
         }
     }
 
@@ -51,6 +58,8 @@ public partial class MainWindow : Window {
     private void TextBox_LostFocus(object? sender, RoutedEventArgs e) {
         if (sender is TextBox tb && tb.DataContext is ColumnManager col) {
             col.IsEditing = false;
+
+            JsonDB.SaveBoard(TaskBoard);
         }
     }
 
@@ -58,6 +67,8 @@ public partial class MainWindow : Window {
         if (e.Key == Key.Enter && sender is TextBox tb && tb.DataContext is ColumnManager col) {
             col.IsEditing = false;
             e.Handled = true;
+
+            JsonDB.SaveBoard(TaskBoard);
         }
     }
 
@@ -69,7 +80,7 @@ public partial class MainWindow : Window {
     
     private TaskCard? _draggingCard;
     private ColumnManager? _dragSourceColumn;
-    private Border? _dragVisual;
+    // private Border? _dragVisual;
 
     /* Handles title of card clicks to open up edit popup*/
     private async void TaskName_PointerPressed(object? sender, PointerPressedEventArgs e) {
@@ -82,6 +93,7 @@ public partial class MainWindow : Window {
 
         var popup = new TaskPopup(task);
         var result = await popup.ShowDialog<bool>(this);
+        // Needed to update taskcard title and colour (and everything else)
         if (result)
             JsonDB.SaveBoard(TaskBoard);
     }

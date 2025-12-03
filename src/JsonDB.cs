@@ -23,18 +23,19 @@ public static class JsonDB {
         var json = File.ReadAllText(FilePath);
         var board = JsonSerializer.Deserialize<Board>(json)!;
 
-        // Converting to observable lists for Avalonia
-        foreach (var col in board.ColumnList) {
-            col.TaskList = new ObservableCollection<TaskCard>(col.TaskList);
-            col.ParentBoard = board;
-        }
-
         board.ColumnList = new ObservableCollection<ColumnManager>(board.ColumnList);
         if (board.ColumnList.Count > 0)
             board.FirstColumn = board.ColumnList[0];
         
         board.NumberOfColumns = board.ColumnList.Count;
 
+        // Converting to observable lists for Avalonia
+        foreach (var col in board.ColumnList) {
+            col.TaskList = new ObservableCollection<TaskCard>(col.TaskList);
+            col.ParentBoard = board;
+        }
+
+        // TODO: Add safety condition to only save on successful loading of everything
         SaveBoard(board);
         return board;
     }

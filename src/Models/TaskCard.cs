@@ -1,6 +1,6 @@
 /* Models a task card that sits inside a column on the taskboard*/
 using System.ComponentModel;
-using Avalonia.Media;
+// using Avalonia.Media;
 
 namespace App.Models {
 
@@ -10,7 +10,7 @@ namespace App.Models {
         public event PropertyChangedEventHandler? PropertyChanged;
 
         /* Updates the value of the task name dynamically if edited in UI*/
-        private string _taskName;
+        private string _taskName = "New Task";
         public string TaskName {
             get => _taskName;
             set {
@@ -21,7 +21,8 @@ namespace App.Models {
             }
         }
 
-        public string TaskDescription { get; set; }
+        // TODO: Make use of task description
+        // public string TaskDescription { get; set; }
         
         /* Updates the tasks colour dynamically if edited in UI */
         // private Color _taskColour = Color.Parse("#FFDEFF");
@@ -32,18 +33,9 @@ namespace App.Models {
                 if (_taskColour != value) {
                     _taskColour = value;
                     OnPropertyChanged(nameof(TaskColour));
-                    // OnPropertyChanged(nameof(TaskBrush));
                 }
             }
         }
-        // public IBrush TaskBrush => new SolidColorBrush(TaskColour);
-
-        // public static readonly Color[] AvailableColours = new Color[] {
-        //     Color.Parse("#FF0000"),
-            // Color.Parse("#FFFFFF"),
-            // Color.Parse("#000000")
-        // };
-        // public Color[] AvailableColoursInstance => AvailableColours;
 
         public bool TaskState { get; set; }         // May remove
         // TODO: Turn this into an enum 
@@ -62,12 +54,11 @@ namespace App.Models {
 
     // ===========================                  ==========================
         /* Constructor */
-        public TaskCard() {
-    
-        }
+        public TaskCard() {} // Literally just for json to load a card 
+
         public TaskCard(string name, string desc="") {
             _taskName = name;
-            TaskDescription = desc;
+            // TaskDescription = desc;
             TaskState = false;
             // TaskColour = colour;
         }
@@ -78,6 +69,7 @@ namespace App.Models {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(pName));
         }
 
+        // TODO: The two below functions arnt being used, find work for them or delete
         /* Updates a given task with any combination of new name, description, 
            and colour*/
         public void Update(string name, string description, string colour) {

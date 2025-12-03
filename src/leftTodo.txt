@@ -1,3 +1,0 @@
-Add dragable feature for all columns to reorder 
-Add dragable feature for all tasks inter and inbetween columns
-Persistence of columns, tasks, across sessions. i.e Json/SQL

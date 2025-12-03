@@ -4,18 +4,15 @@ using App.Managers;
 namespace App.Board {
 
     public class Board {
-
         public ObservableCollection<ColumnManager> ColumnList { get; set; } = 
             new ObservableCollection<ColumnManager>();
         public ColumnManager FirstColumn { get; set; }
         public int NumberOfColumns { get; set; }
 
         public Board() {
-            // ColumnList = new ObservableCollection<ColumnManager>();
             AddColumn("Tasks");
             FirstColumn = ColumnList[0];
             NumberOfColumns = 0;
-            // FirstColumn = null;
         }
 
         // TODO: Change the "" and null check on name with correct handling
@@ -37,6 +34,8 @@ namespace App.Board {
             JsonDB.SaveBoard(this);
         }
 
+        /* Helper for moving the indexes of columns around to match the visual 
+         * changes on the frontend*/
         public void MoveColumn(ColumnManager col, int idx) {
             if (col == null) return;
 
