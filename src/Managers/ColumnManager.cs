@@ -46,8 +46,6 @@ namespace App.Managers {
         }
 
         public ColumnManager(string name, App.Board.Board parent) {
-            // TaskList = new ObservableCollection<TaskCard>();
-            // Manager = new TaskManager();
             _colName = name;
             ParentBoard = parent;
         }

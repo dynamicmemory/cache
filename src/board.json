@@ -1,59 +1,11 @@
 {
   "ColumnList": [
     {
-      "ColName": "Tasks",
+      "ColName": "TASK",
       "IsEditing": false,
       "TaskList": [
         {
-          "TaskName": "New Task Added 1",
-          "TaskColour": "#FFDEFF",
-          "TaskState": false,
-          "AvailableColours": [
-            "#FFFFFF",
-            "#FFDEFF",
-            "#9C27F5",
-            "#F59C27",
-            "#27F59C",
-            "#80F527",
-            "#E7F527",
-            "#27E7F5",
-            "#F53527"
-          ]
-        },
-        {
-          "TaskName": "New Task Added 2",
-          "TaskColour": "#FFDEFF",
-          "TaskState": false,
-          "AvailableColours": [
-            "#FFFFFF",
-            "#FFDEFF",
-            "#9C27F5",
-            "#F59C27",
-            "#27F59C",
-            "#80F527",
-            "#E7F527",
-            "#27E7F5",
-            "#F53527"
-          ]
-        },
-        {
-          "TaskName": "New Task Added 5",
-          "TaskColour": "#FFDEFF",
-          "TaskState": false,
-          "AvailableColours": [
-            "#FFFFFF",
-            "#FFDEFF",
-            "#9C27F5",
-            "#F59C27",
-            "#27F59C",
-            "#80F527",
-            "#E7F527",
-            "#27E7F5",
-            "#F53527"
-          ]
-        },
-        {
-          "TaskName": "New Task Added 6",
+          "TaskName": "New Task Added 3",
           "TaskColour": "#FFDEFF",
           "TaskState": false,
           "AvailableColours": [
@@ -69,18 +21,34 @@
           ]
         }
       ],
-      "NumberOfTasks": 8,
+      "NumberOfTasks": 5,
       "IsNotEditing": true,
       "Removable": false,
       "NameEditable": false
     },
     {
-      "ColName": "Doing",
+      "ColName": "New Column",
       "IsEditing": false,
       "TaskList": [
         {
-          "TaskName": "Clean out Cache, untangle the mess it has become before adding anything new",
-          "TaskColour": "#27E7F5",
+          "TaskName": "New Task Added 0",
+          "TaskColour": "#FFDEFF",
+          "TaskState": false,
+          "AvailableColours": [
+            "#FFFFFF",
+            "#FFDEFF",
+            "#9C27F5",
+            "#F59C27",
+            "#27F59C",
+            "#80F527",
+            "#E7F527",
+            "#27E7F5",
+            "#F53527"
+          ]
+        },
+        {
+          "TaskName": "New Task Added 1",
+          "TaskColour": "#FFDEFF",
           "TaskState": false,
           "AvailableColours": [
             "#FFFFFF",
@@ -101,11 +69,11 @@
       "NameEditable": true
     },
     {
-      "ColName": "Block",
+      "ColName": "New Column",
       "IsEditing": false,
       "TaskList": [
         {
-          "TaskName": "New Task Added 3",
+          "TaskName": "New Task Added 2",
           "TaskColour": "#FFDEFF",
           "TaskState": false,
           "AvailableColours": [
@@ -119,7 +87,17 @@
             "#27E7F5",
             "#F53527"
           ]
-        },
+        }
+      ],
+      "NumberOfTasks": 0,
+      "IsNotEditing": true,
+      "Removable": true,
+      "NameEditable": true
+    },
+    {
+      "ColName": "New Column",
+      "IsEditing": false,
+      "TaskList": [
         {
           "TaskName": "New Task Added 4",
           "TaskColour": "#FFDEFF",
@@ -141,88 +119,14 @@
       "IsNotEditing": true,
       "Removable": true,
       "NameEditable": true
-    },
-    {
-      "ColName": "Finished",
-      "IsEditing": false,
-      "TaskList": [
-        {
-          "TaskName": "Algorithms in Machine Learning",
-          "TaskColour": "#80F527",
-          "TaskState": false,
-          "AvailableColours": [
-            "#FFFFFF",
-            "#FFDEFF",
-            "#9C27F5",
-            "#F59C27",
-            "#27F59C",
-            "#80F527",
-            "#E7F527",
-            "#27E7F5",
-            "#F53527"
-          ]
-        }
-      ],
-      "NumberOfTasks": 0,
-      "IsNotEditing": true,
-      "Removable": true,
-      "NameEditable": true
     }
   ],
   "FirstColumn": {
-    "ColName": "Tasks",
+    "ColName": "TASK",
     "IsEditing": false,
     "TaskList": [
       {
-        "TaskName": "New Task Added 1",
-        "TaskColour": "#FFDEFF",
-        "TaskState": false,
-        "AvailableColours": [
-          "#FFFFFF",
-          "#FFDEFF",
-          "#9C27F5",
-          "#F59C27",
-          "#27F59C",
-          "#80F527",
-          "#E7F527",
-          "#27E7F5",
-          "#F53527"
-        ]
-      },
-      {
-        "TaskName": "New Task Added 2",
-        "TaskColour": "#FFDEFF",
-        "TaskState": false,
-        "AvailableColours": [
-          "#FFFFFF",
-          "#FFDEFF",
-          "#9C27F5",
-          "#F59C27",
-          "#27F59C",
-          "#80F527",
-          "#E7F527",
-          "#27E7F5",
-          "#F53527"
-        ]
-      },
-      {
-        "TaskName": "New Task Added 5",
-        "TaskColour": "#FFDEFF",
-        "TaskState": false,
-        "AvailableColours": [
-          "#FFFFFF",
-          "#FFDEFF",
-          "#9C27F5",
-          "#F59C27",
-          "#27F59C",
-          "#80F527",
-          "#E7F527",
-          "#27E7F5",
-          "#F53527"
-        ]
-      },
-      {
-        "TaskName": "New Task Added 6",
+        "TaskName": "New Task Added 3",
         "TaskColour": "#FFDEFF",
         "TaskState": false,
         "AvailableColours": [
@@ -238,10 +142,9 @@
         ]
       }
     ],
-    "NumberOfTasks": 8,
+    "NumberOfTasks": 5,
     "IsNotEditing": true,
     "Removable": false,
     "NameEditable": false
-  },
-  "NumberOfColumns": 4
+  }
 }

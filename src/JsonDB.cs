@@ -1,3 +1,4 @@
+using System;
 using System.Text.Json;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -16,18 +17,25 @@ public static class JsonDB {
         File.WriteAllText(FilePath, json);
     }
 
+    /* Loads state from json file or creates a new board to use if no json is 
+     * found*/
     public static Board LoadBoard() {
+        if (!File.Exists(FilePath)) 
+            return new Board();
         
-        if (!File.Exists(FilePath)) return new Board();
-
-        var json = File.ReadAllText(FilePath);
-        var board = JsonSerializer.Deserialize<Board>(json)!;
-
+        Board board;
+        try {
+        string json = File.ReadAllText(FilePath);
+        board = JsonSerializer.Deserialize<Board>(json)!;
         board.ColumnList = new ObservableCollection<ColumnManager>(board.ColumnList);
+        } catch (JsonException e) {
+            Console.WriteLine(e.Message);
+            return new Board();
+        }
+
+        // You must set the FirstColumn or else Null explosion inside the json
         if (board.ColumnList.Count > 0)
             board.FirstColumn = board.ColumnList[0];
-        
-        board.NumberOfColumns = board.ColumnList.Count;
 
         // Converting to observable lists for Avalonia
         foreach (var col in board.ColumnList) {

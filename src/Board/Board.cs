@@ -4,42 +4,38 @@ using App.Managers;
 namespace App.Board {
 
     public class Board {
-        public ObservableCollection<ColumnManager> ColumnList { get; set; } = 
-            new ObservableCollection<ColumnManager>();
+        public ObservableCollection<ColumnManager> ColumnList { get; set; } 
         public ColumnManager FirstColumn { get; set; }
-        public int NumberOfColumns { get; set; }
 
         public Board() {
-            AddColumn("Tasks");
+            // Needed to control column ones permissions, must be set on first creation
+            ColumnList = new ObservableCollection<ColumnManager>();
+            AddColumn("TASK");
             FirstColumn = ColumnList[0];
-            NumberOfColumns = 0;
         }
 
-        // TODO: Change the "" and null check on name with correct handling
-        /* Help function for adding a new column to the UI*/
-        public void AddColumn(string colName="New Column") {
-            if (string.IsNullOrEmpty(colName)) colName = "New Column";
-            var col = new ColumnManager(colName, this); 
-            ColumnList.Add(col);            
-            NumberOfColumns++;
+        // TODO: Remove ability to pass a name into addcolumn, except for col 1
+        /* Helper function for adding a new column to the ColumnList*/
+        public void AddColumn(string columnName="New Column") {
+            ColumnList.Add(new ColumnManager(columnName, this));            
             JsonDB.SaveBoard(this);
         }
 
-        /* Removes a column at a given index*/ 
-        public void RemoveColumn(ColumnManager col) {
-            if (col == FirstColumn) return;
-
-            ColumnList.Remove(col);
-            NumberOfColumns--;
+        /* Helper function for removing a column as long as it's not the first
+         * column of ColumnList*/ 
+        public void RemoveColumn(ColumnManager column) {
+            if (column == FirstColumn) return;
+            ColumnList.Remove(column);
             JsonDB.SaveBoard(this);
         }
 
+        // TODO: Come back to this when i add column switching
         /* Helper for moving the indexes of columns around to match the visual 
          * changes on the frontend*/
-        public void MoveColumn(ColumnManager col, int idx) {
-            if (col == null) return;
+        public void MoveColumn(ColumnManager column, int idx) {
+            if (column == null) return;
 
-            var oldidx = ColumnList.IndexOf(col);
+            int oldidx = ColumnList.IndexOf(column);
             if (oldidx == -1) return;
 
             if (idx < 0) idx = 0;

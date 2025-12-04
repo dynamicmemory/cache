@@ -21,9 +21,10 @@ public partial class MainWindow : Window {
     public Board TaskBoard { get; }
 
     public MainWindow() {
-        // TaskBoard = new Board();
         TaskBoard = JsonDB.LoadBoard();
         InitializeComponent();
+
+        // TODO: These two handlers define taskcard dragging, update to newer way
         AddHandler(DragDrop.DragOverEvent, OnDragOver);
         AddHandler(DragDrop.DropEvent, OnDrop);
 
@@ -80,20 +81,22 @@ public partial class MainWindow : Window {
     
     private TaskCard? _draggingCard;
     private ColumnManager? _dragSourceColumn;
-    // private Border? _dragVisual;
 
     /* Handles title of card clicks to open up edit popup*/
     private async void TaskName_PointerPressed(object? sender, PointerPressedEventArgs e) {
-        // if (!e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
-        //     return;
-        e.Handled = true;
-        if (sender is not Control control) return;
 
-        if (control.DataContext is not TaskCard task) return;
+        e.Handled = true;
+
+        if (sender is not Control control) 
+            return;
+
+        if (control.DataContext is not TaskCard task) 
+            return;
 
         var popup = new TaskPopup(task);
         var result = await popup.ShowDialog<bool>(this);
-        // Needed to update taskcard title and colour (and everything else)
+
+        // TODO: MOVE? Needed to update taskcard title and colour (and everything else)
         if (result)
             JsonDB.SaveBoard(TaskBoard);
     }
@@ -156,8 +159,6 @@ public partial class MainWindow : Window {
         if (columnControl?.DataContext is not ColumnManager targetColumn)
             return;
 
-        // Console.WriteLine("DROP TARGET: " + targetColumn.ColName);
-
         // Find the task under the mouse if there is one 
         var taskControl = control?
             .GetVisualAncestors()
@@ -171,15 +172,12 @@ public partial class MainWindow : Window {
             insertIdx = targetColumn.TaskList.IndexOf(targetTask);
 
         // If the card is dropped in the same column, reorder accordingly
-        // if (_dragSourceColumn != null && _dragSourceColumn == targetColumn) {
         if (_dragSourceColumn == targetColumn && targetTask != null) {
             var oldIdx = targetColumn.TaskList.IndexOf(dropped);
 
-            if (oldIdx == insertIdx) return;
-
+            if (oldIdx == insertIdx) 
+                return;
             targetColumn.MoveTask(dropped, insertIdx);
-            // if (insertIdx > oldIdx) 
-            //     insertIdx--;
         }
         _dragSourceColumn?.RemoveTask(dropped);
         targetColumn.InsertTask(dropped, insertIdx);
