@@ -8,16 +8,16 @@ namespace App.Board {
         public ColumnManager FirstColumn { get; set; }
 
         public Board() {
-            // Needed to control column ones permissions, must be set on first creation
+            // If no db exists we need the first board created to do the following
             ColumnList = new ObservableCollection<ColumnManager>();
-            AddColumn("TASK");
+            AddColumn();
             FirstColumn = ColumnList[0];
+            FirstColumn.ColName = "TASKS";
         }
 
-        // TODO: Remove ability to pass a name into addcolumn, except for col 1
         /* Helper function for adding a new column to the ColumnList*/
-        public void AddColumn(string columnName="New Column") {
-            ColumnList.Add(new ColumnManager(columnName, this));            
+        public void AddColumn() {
+            ColumnList.Add(new ColumnManager(this));            
             JsonDB.SaveBoard(this);
         }
 

@@ -1,150 +1,263 @@
 {
   "ColumnList": [
     {
-      "ColName": "TASK",
-      "IsEditing": false,
       "TaskList": [
         {
-          "TaskName": "New Task Added 3",
-          "TaskColour": "#FFDEFF",
-          "TaskState": false,
+          "TaskName": "New Task",
+          "TaskColour": "White",
           "AvailableColours": [
-            "#FFFFFF",
-            "#FFDEFF",
-            "#9C27F5",
-            "#F59C27",
-            "#27F59C",
-            "#80F527",
-            "#E7F527",
-            "#27E7F5",
-            "#F53527"
-          ]
-        }
-      ],
-      "NumberOfTasks": 5,
-      "IsNotEditing": true,
-      "Removable": false,
-      "NameEditable": false
-    },
-    {
-      "ColName": "New Column",
-      "IsEditing": false,
-      "TaskList": [
-        {
-          "TaskName": "New Task Added 0",
-          "TaskColour": "#FFDEFF",
-          "TaskState": false,
-          "AvailableColours": [
-            "#FFFFFF",
-            "#FFDEFF",
-            "#9C27F5",
-            "#F59C27",
-            "#27F59C",
-            "#80F527",
-            "#E7F527",
-            "#27E7F5",
-            "#F53527"
+            "Magenta",
+            "Purple",
+            "Bulma",
+            "Green",
+            "Lime",
+            "Blue",
+            "Trunks",
+            "Yellow",
+            "Orange",
+            "Red",
+            "BluPurp",
+            "White"
           ]
         },
         {
-          "TaskName": "New Task Added 1",
-          "TaskColour": "#FFDEFF",
-          "TaskState": false,
+          "TaskName": "New Task",
+          "TaskColour": "Purple",
           "AvailableColours": [
-            "#FFFFFF",
-            "#FFDEFF",
-            "#9C27F5",
-            "#F59C27",
-            "#27F59C",
-            "#80F527",
-            "#E7F527",
-            "#27E7F5",
-            "#F53527"
+            "Magenta",
+            "Purple",
+            "Bulma",
+            "Green",
+            "Lime",
+            "Blue",
+            "Trunks",
+            "Yellow",
+            "Orange",
+            "Red",
+            "BluPurp",
+            "White"
+          ]
+        },
+        {
+          "TaskName": "New Task",
+          "TaskColour": "White",
+          "AvailableColours": [
+            "Magenta",
+            "Purple",
+            "Bulma",
+            "Green",
+            "Lime",
+            "Blue",
+            "Trunks",
+            "Yellow",
+            "Orange",
+            "Red",
+            "BluPurp",
+            "White"
+          ]
+        },
+        {
+          "TaskName": "New Task",
+          "TaskColour": "White",
+          "AvailableColours": [
+            "Magenta",
+            "Purple",
+            "Bulma",
+            "Green",
+            "Lime",
+            "Blue",
+            "Trunks",
+            "Yellow",
+            "Orange",
+            "Red",
+            "BluPurp",
+            "White"
           ]
         }
       ],
-      "NumberOfTasks": 0,
+      "Removable": false,
+      "NameEditable": false,
+      "ColName": "TASKS",
       "IsNotEditing": true,
-      "Removable": true,
-      "NameEditable": true
+      "IsEditing": false
     },
     {
-      "ColName": "New Column",
-      "IsEditing": false,
       "TaskList": [
         {
-          "TaskName": "New Task Added 2",
-          "TaskColour": "#FFDEFF",
-          "TaskState": false,
+          "TaskName": "New Taskasdfasdf",
+          "TaskColour": "Bulma",
           "AvailableColours": [
-            "#FFFFFF",
-            "#FFDEFF",
-            "#9C27F5",
-            "#F59C27",
-            "#27F59C",
-            "#80F527",
-            "#E7F527",
-            "#27E7F5",
-            "#F53527"
+            "Magenta",
+            "Purple",
+            "Bulma",
+            "Green",
+            "Lime",
+            "Blue",
+            "Trunks",
+            "Yellow",
+            "Orange",
+            "Red",
+            "BluPurp",
+            "White"
+          ]
+        },
+        {
+          "TaskName": "New Task",
+          "TaskColour": "Blue",
+          "AvailableColours": [
+            "Magenta",
+            "Purple",
+            "Bulma",
+            "Green",
+            "Lime",
+            "Blue",
+            "Trunks",
+            "Yellow",
+            "Orange",
+            "Red",
+            "BluPurp",
+            "White"
+          ]
+        },
+        {
+          "TaskName": "New Task",
+          "TaskColour": "Green",
+          "AvailableColours": [
+            "Magenta",
+            "Purple",
+            "Bulma",
+            "Green",
+            "Lime",
+            "Blue",
+            "Trunks",
+            "Yellow",
+            "Orange",
+            "Red",
+            "BluPurp",
+            "White"
+          ]
+        },
+        {
+          "TaskName": "New Task",
+          "TaskColour": "Lime",
+          "AvailableColours": [
+            "Magenta",
+            "Purple",
+            "Bulma",
+            "Green",
+            "Lime",
+            "Blue",
+            "Trunks",
+            "Yellow",
+            "Orange",
+            "Red",
+            "BluPurp",
+            "White"
           ]
         }
       ],
-      "NumberOfTasks": 0,
-      "IsNotEditing": true,
       "Removable": true,
-      "NameEditable": true
+      "NameEditable": true,
+      "ColName": "Nasdfasdfew Column",
+      "IsNotEditing": true,
+      "IsEditing": false
     },
     {
-      "ColName": "New Column",
-      "IsEditing": false,
-      "TaskList": [
-        {
-          "TaskName": "New Task Added 4",
-          "TaskColour": "#FFDEFF",
-          "TaskState": false,
-          "AvailableColours": [
-            "#FFFFFF",
-            "#FFDEFF",
-            "#9C27F5",
-            "#F59C27",
-            "#27F59C",
-            "#80F527",
-            "#E7F527",
-            "#27E7F5",
-            "#F53527"
-          ]
-        }
-      ],
-      "NumberOfTasks": 0,
-      "IsNotEditing": true,
+      "TaskList": [],
       "Removable": true,
-      "NameEditable": true
+      "NameEditable": true,
+      "ColName": "New Column",
+      "IsNotEditing": true,
+      "IsEditing": false
+    },
+    {
+      "TaskList": [],
+      "Removable": true,
+      "NameEditable": true,
+      "ColName": "New Column",
+      "IsNotEditing": true,
+      "IsEditing": false
     }
   ],
   "FirstColumn": {
-    "ColName": "TASK",
-    "IsEditing": false,
     "TaskList": [
       {
-        "TaskName": "New Task Added 3",
-        "TaskColour": "#FFDEFF",
-        "TaskState": false,
+        "TaskName": "New Task",
+        "TaskColour": "White",
         "AvailableColours": [
-          "#FFFFFF",
-          "#FFDEFF",
-          "#9C27F5",
-          "#F59C27",
-          "#27F59C",
-          "#80F527",
-          "#E7F527",
-          "#27E7F5",
-          "#F53527"
+          "Magenta",
+          "Purple",
+          "Bulma",
+          "Green",
+          "Lime",
+          "Blue",
+          "Trunks",
+          "Yellow",
+          "Orange",
+          "Red",
+          "BluPurp",
+          "White"
+        ]
+      },
+      {
+        "TaskName": "New Task",
+        "TaskColour": "Purple",
+        "AvailableColours": [
+          "Magenta",
+          "Purple",
+          "Bulma",
+          "Green",
+          "Lime",
+          "Blue",
+          "Trunks",
+          "Yellow",
+          "Orange",
+          "Red",
+          "BluPurp",
+          "White"
+        ]
+      },
+      {
+        "TaskName": "New Task",
+        "TaskColour": "White",
+        "AvailableColours": [
+          "Magenta",
+          "Purple",
+          "Bulma",
+          "Green",
+          "Lime",
+          "Blue",
+          "Trunks",
+          "Yellow",
+          "Orange",
+          "Red",
+          "BluPurp",
+          "White"
+        ]
+      },
+      {
+        "TaskName": "New Task",
+        "TaskColour": "White",
+        "AvailableColours": [
+          "Magenta",
+          "Purple",
+          "Bulma",
+          "Green",
+          "Lime",
+          "Blue",
+          "Trunks",
+          "Yellow",
+          "Orange",
+          "Red",
+          "BluPurp",
+          "White"
         ]
       }
     ],
-    "NumberOfTasks": 5,
-    "IsNotEditing": true,
     "Removable": false,
-    "NameEditable": false
+    "NameEditable": false,
+    "ColName": "TASKS",
+    "IsNotEditing": true,
+    "IsEditing": false
   }
 }

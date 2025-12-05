@@ -172,16 +172,14 @@ public partial class MainWindow : Window {
             insertIdx = targetColumn.TaskList.IndexOf(targetTask);
 
         // If the card is dropped in the same column, reorder accordingly
-        if (_dragSourceColumn == targetColumn && targetTask != null) {
-            var oldIdx = targetColumn.TaskList.IndexOf(dropped);
-
-            if (oldIdx == insertIdx) 
-                return;
+        if (_dragSourceColumn == targetColumn) {
+            int oldIdx = targetColumn.TaskList.IndexOf(dropped);
             targetColumn.MoveTask(dropped, insertIdx);
         }
-        _dragSourceColumn?.RemoveTask(dropped);
-        targetColumn.InsertTask(dropped, insertIdx);
-
+        else {
+            _dragSourceColumn?.RemoveTask(dropped);
+            targetColumn.InsertTask(dropped, insertIdx);
+        }
         e.Handled = true;
     }
 }

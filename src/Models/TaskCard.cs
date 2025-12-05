@@ -26,7 +26,7 @@ namespace App.Models {
         
         /* Updates the tasks colour dynamically if edited in UI */
         // private Color _taskColour = Color.Parse("#FFDEFF");
-        private string _taskColour = "#FFDEFF";
+        private string _taskColour = "White";
         public string TaskColour {
             get => _taskColour;
             set {
@@ -37,19 +37,19 @@ namespace App.Models {
             }
         }
 
-        public bool TaskState { get; set; }         // May remove
-        // TODO: Turn this into an enum 
         public string[] AvailableColours { get; } = new string[] { 
-            "#FFFFFF", 
-            "#FFDEFF", // light pink
-            "#9C27F5",// purple
-            "#F59C27", // Orange
-            "#27F59C",  // bulma
-            "#80F527",  // Green
-            "#E7F527", // Yellow
-            "#27E7F5", // Trunks cyan
-            "#F53527", // Red 
-
+            "Magenta",
+            "Purple",
+            "Bulma",
+            "Green",
+            "Lime",
+            "Blue",
+            "Trunks", 
+            "Yellow",
+            "Orange",
+            "Red",
+            "BluPurp",
+            "White", 
         };
 
     // ===========================                  ==========================
@@ -58,28 +58,12 @@ namespace App.Models {
 
         public TaskCard(string name, string desc="") {
             _taskName = name;
-            // TaskDescription = desc;
-            TaskState = false;
-            // TaskColour = colour;
         }
 
         /* Helper for events - Sets the propertyName with the updated value if 
          * it has dynamically changed at run time*/ 
         protected void OnPropertyChanged(string pName) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(pName));
-        }
-
-        // TODO: The two below functions arnt being used, find work for them or delete
-        /* Updates a given task with any combination of new name, description, 
-           and colour*/
-        public void Update(string name, string description, string colour) {
-        
-        }
-
-        /* Updates a given task to completed when moved into the finished column
-         */
-        public void Complete(TaskCard task) {
-            task.TaskState = true;
         }
     }
 }

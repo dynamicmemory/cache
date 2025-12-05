@@ -12,6 +12,7 @@
 
   <Window.Resources>
     <helpers:StringToBrushConverter x:Key="StringToBrush"/>
+    <helpers:LuminanceTextFilter x:Key="LuminanceText"/>
   </Window.Resources>
 
   <StackPanel Margin="10" Spacing="10">

@@ -7,10 +7,12 @@
         Width="800"
         Height="450"
         Padding="10"
-        Title="Cache - Download your brain for better context switching.">
+        Title="Cache - Download your brain for better context switching."
+        Background="#D1D1D1">
 
   <Window.Resources>
     <helpers:StringToBrushConverter x:Key="StringToBrush"/>
+    <helpers:LuminanceTextFilter x:Key="LuminanceText"/>
   </Window.Resources>
 
 
@@ -18,9 +20,15 @@
 
     <!--TOP PANEL-->
 
-    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="5" Margin="5">
-      <Button Content="Add Task" Command="{Binding FirstColumn.AddNewTask}" />
-      <Button Content="Add Column" Command="{Binding AddColumn}" />
+    <StackPanel DockPanel.Dock="Top" 
+                Orientation="Horizontal" 
+                Spacing="5" 
+                Margin="5"
+                >
+
+      <Button Content="Add Task" Command="{Binding FirstColumn.AddNewTask}" Background="#FFFFFF"/>
+      <Button Content="Add Column" Command="{Binding AddColumn}" Background="#FFFFFF"/>
+
     </StackPanel>
 
     <!--BINDS THE COLUMN LIST FROM BOARD-->
@@ -42,10 +50,18 @@
 
       <ItemsControl.ItemTemplate>
         <DataTemplate>
-          <Border BorderBrush="Black" Padding="5" Margin="0 0 10 0" 
-                  BorderThickness="1" CornerRadius="4" DragDrop.AllowDrop="True">
-            <StackPanel Margin="10" Width="200" DragDrop.AllowDrop="True"
-                        Background="Transparent" MinHeight="300">
+          <Border BorderBrush="Black" 
+                  Padding="5" 
+                  Margin="0 0 10 0" 
+                  BorderThickness="1" 
+                  CornerRadius="4" 
+                  DragDrop.AllowDrop="True"
+                  Background="#969696">
+            <StackPanel Margin="10" 
+                        Width="200" 
+                        DragDrop.AllowDrop="True"
+                        Background="Transparent" 
+                        MinHeight="300">
                 
               <!--COLUMN HEADER-->
 
@@ -89,11 +105,14 @@
                               Height="100" PointerPressed="TaskCard_PointerPressed"
                               Cursor="Hand"
                               Background="{Binding TaskColour, 
-                              Converter={StaticResource StringToBrush}}">
+                                           Converter={StaticResource StringToBrush}}">
+
 
                         <TextBlock Text="{Binding TaskName}" 
                                    TextWrapping="Wrap"
-                                   PointerPressed="TaskName_PointerPressed">
+                                   PointerPressed="TaskName_PointerPressed"
+                                   Foreground="{Binding TaskColour, 
+                                               Converter={StaticResource LuminanceText}}">
                           <TextBlock.Styles>
                             <Style Selector="TextBlock:pointerover">
                               <Setter Property="TextDecorations" Value="Underline"/>

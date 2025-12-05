@@ -8,9 +8,16 @@ namespace App.Managers {
     public class ColumnManager : INotifyPropertyChanged {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private string _colName = "New Column";
-        private bool _isEditing;
+        [JsonIgnore]
+        public App.Board.Board ParentBoard { get; set; }
+        public ObservableCollection<TaskCard> TaskList { get; set; }
 
+        // Controls X button visibility
+        public bool Removable => this != ParentBoard?.FirstColumn;
+        public bool NameEditable => this != ParentBoard?.FirstColumn;
+
+        // Updates name when change in the UI
+        private string _colName;
         public string ColName { get => _colName;
             set { if (_colName != value) {
                 _colName = value;
@@ -19,6 +26,9 @@ namespace App.Managers {
             }
         }
 
+        // Fields so setting a column to "editing" or not
+        private bool _isEditing;
+        public bool IsNotEditing => !_isEditing;
         public bool IsEditing { get => _isEditing;
             set {
                 if (_isEditing != value) {
@@ -29,31 +39,16 @@ namespace App.Managers {
             }
         }
 
-        public ObservableCollection<TaskCard> TaskList { get; set; } = 
-            new ObservableCollection<TaskCard>();
-        public int NumberOfTasks { get; set; }
-        // public int OrderIndex{ get; set; }        // Not needed till SQL db
-        [JsonIgnore]
-        public App.Board.Board ParentBoard { get; set; }
-        public bool IsNotEditing => !_isEditing;
+        public ColumnManager() {}
 
-
-        // Controls X button visibility
-        public bool Removable => this != ParentBoard?.FirstColumn;
-        public bool NameEditable => this != ParentBoard?.FirstColumn;
-
-        public ColumnManager() {
-        }
-
-        public ColumnManager(string name, App.Board.Board parent) {
-            _colName = name;
+        public ColumnManager(App.Board.Board parent) {
             ParentBoard = parent;
+            TaskList = new ObservableCollection<TaskCard>();
+            _colName = "New Column";
         }
 
         public void AddNewTask() {
-            TaskCard tc = new TaskCard($"New Task Added {NumberOfTasks}");
-            TaskList.Add(tc);
-            NumberOfTasks++;
+            TaskList.Add(new TaskCard($"New Task")); 
             JsonDB.SaveBoard(ParentBoard);
         }
 
@@ -61,15 +56,16 @@ namespace App.Managers {
         public void MoveTask(TaskCard card, int idx) {
             if (card == null) return;
 
-            var oldidx = TaskList.IndexOf(card);
+            int oldidx = TaskList.IndexOf(card);
             if (oldidx == -1) return;
 
             if (idx < 0) idx = 0;
-            if (idx >= TaskList.Count) idx = idx - 1;
+            if (idx > TaskList.Count) idx = TaskList.Count;
 
-            if (oldidx == idx) return;
+            if (oldidx == idx || oldidx + 1 == idx) return;
 
-            TaskList.Move(oldidx, idx);
+            
+            TaskList.Move(oldidx, System.Math.Min(idx, TaskList.Count-1));
             JsonDB.SaveBoard(ParentBoard);
         }
         
@@ -89,7 +85,5 @@ namespace App.Managers {
         protected void OnPropertyChanged(string propertyName) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-
     }
 }
