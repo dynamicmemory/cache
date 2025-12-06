@@ -1,16 +1,14 @@
 /* Models a task card that sits inside a column on the taskboard*/
 using System.ComponentModel;
-// using Avalonia.Media;
 
 namespace App.Models {
 
     public class TaskCard : INotifyPropertyChanged {
 
-    // =========================== CLASS PROPERTIES ==========================
         public event PropertyChangedEventHandler? PropertyChanged;
 
         /* Updates the value of the task name dynamically if edited in UI*/
-        private string _taskName = "New Task";
+        private string _taskName;
         public string TaskName {
             get => _taskName;
             set {
@@ -25,7 +23,6 @@ namespace App.Models {
         // public string TaskDescription { get; set; }
         
         /* Updates the tasks colour dynamically if edited in UI */
-        // private Color _taskColour = Color.Parse("#FFDEFF");
         private string _taskColour = "White";
         public string TaskColour {
             get => _taskColour;
@@ -38,27 +35,14 @@ namespace App.Models {
         }
 
         public string[] AvailableColours { get; } = new string[] { 
-            "Magenta",
-            "Purple",
-            "Bulma",
-            "Green",
-            "Lime",
-            "Blue",
-            "Trunks", 
-            "Yellow",
-            "Orange",
-            "Red",
-            "BluPurp",
-            "White", 
+            "Magenta", "Purple", "Bulma", "Green", "Lime", "Blue",
+            "Trunks", "Yellow", "Orange", "Red", "BluPurp", "White", "Transp", 
         };
 
-    // ===========================                  ==========================
         /* Constructor */
-        public TaskCard() {} // Literally just for json to load a card 
-
-        public TaskCard(string name, string desc="") {
-            _taskName = name;
-        }
+        public TaskCard() {
+            _taskName = "New Task";
+        } 
 
         /* Helper for events - Sets the propertyName with the updated value if 
          * it has dynamically changed at run time*/ 

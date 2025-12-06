@@ -40,7 +40,7 @@ public partial class MainWindow : Window {
 
             if (col == col.ParentBoard?.FirstColumn) return;
 
-            var dialog = new ConfirmDialog($"Delete column '{col.ColName}'?");
+            var dialog = new ConfirmDialogView($"Delete column '{col.ColName}'?");
             var result = await dialog.ShowDialog<bool>(this);
 
             // Remove the column from the board 

@@ -48,7 +48,7 @@ namespace App.Managers {
         }
 
         public void AddNewTask() {
-            TaskList.Add(new TaskCard($"New Task")); 
+            TaskList.Add(new TaskCard()); 
             JsonDB.SaveBoard(ParentBoard);
         }
 

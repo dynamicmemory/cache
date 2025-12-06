@@ -4,15 +4,15 @@ using Avalonia.Interactivity;
 
 namespace App.Views;
 
-public partial class ConfirmDialog : Window {
+public partial class ConfirmDialogView : Window {
 
     public string? Message { get; }
 
-    public ConfirmDialog() {
+    public ConfirmDialogView() {
         InitializeComponent();
     }
 
-    public ConfirmDialog(string message) {
+    public ConfirmDialogView(string message) {
         InitializeComponent();
         Message = message;
         DataContext = this;
