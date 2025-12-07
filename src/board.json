@@ -58,25 +58,6 @@
             "White",
             "Transp"
           ]
-        },
-        {
-          "TaskName": "New Task",
-          "TaskColour": "White",
-          "AvailableColours": [
-            "Magenta",
-            "Purple",
-            "Bulma",
-            "Green",
-            "Lime",
-            "Blue",
-            "Trunks",
-            "Yellow",
-            "Orange",
-            "Red",
-            "BluPurp",
-            "White",
-            "Transp"
-          ]
         }
       ],
       "Removable": false,
@@ -87,25 +68,6 @@
     },
     {
       "TaskList": [
-        {
-          "TaskName": "New Taskasdfasdf",
-          "TaskColour": "Bulma",
-          "AvailableColours": [
-            "Magenta",
-            "Purple",
-            "Bulma",
-            "Green",
-            "Lime",
-            "Blue",
-            "Trunks",
-            "Yellow",
-            "Orange",
-            "Red",
-            "BluPurp",
-            "White",
-            "Transp"
-          ]
-        },
         {
           "TaskName": "New Task",
           "TaskColour": "Blue",
@@ -166,12 +128,51 @@
       ],
       "Removable": true,
       "NameEditable": true,
-      "ColName": "Nasdfasdfew Column",
+      "ColName": "New Column",
       "IsNotEditing": true,
       "IsEditing": false
     },
     {
-      "TaskList": [],
+      "TaskList": [
+        {
+          "TaskName": "New Task",
+          "TaskColour": "Bulma",
+          "AvailableColours": [
+            "Magenta",
+            "Purple",
+            "Bulma",
+            "Green",
+            "Lime",
+            "Blue",
+            "Trunks",
+            "Yellow",
+            "Orange",
+            "Red",
+            "BluPurp",
+            "White",
+            "Transp"
+          ]
+        },
+        {
+          "TaskName": "New Task",
+          "TaskColour": "White",
+          "AvailableColours": [
+            "Magenta",
+            "Purple",
+            "Bulma",
+            "Green",
+            "Lime",
+            "Blue",
+            "Trunks",
+            "Yellow",
+            "Orange",
+            "Red",
+            "BluPurp",
+            "White",
+            "Transp"
+          ]
+        }
+      ],
       "Removable": true,
       "NameEditable": true,
       "ColName": "New Column",
@@ -203,25 +204,6 @@
       {
         "TaskName": "New Task",
         "TaskColour": "Purple",
-        "AvailableColours": [
-          "Magenta",
-          "Purple",
-          "Bulma",
-          "Green",
-          "Lime",
-          "Blue",
-          "Trunks",
-          "Yellow",
-          "Orange",
-          "Red",
-          "BluPurp",
-          "White",
-          "Transp"
-        ]
-      },
-      {
-        "TaskName": "New Task",
-        "TaskColour": "White",
         "AvailableColours": [
           "Magenta",
           "Purple",
