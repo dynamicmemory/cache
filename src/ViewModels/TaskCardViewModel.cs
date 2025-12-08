@@ -1,3 +1,4 @@
+
 using System.Collections.Generic;
 using System.ComponentModel;
 using App.Models;
@@ -6,12 +7,12 @@ namespace App.ViewModels {
 
     public class TaskCardViewModel : INotifyPropertyChanged {
         public event PropertyChangedEventHandler? PropertyChanged;
-        private readonly TaskCard _tcard;
+        public TaskCard TaskCardModel;
 
         /* Updates the value of the task name dynamically if edited in UI*/
         public string TaskName {
-            get => _tcard.TaskName;
-            set { _tcard.TaskName = value; OnPropertyChanged(nameof(_tcard.TaskName)); }
+            get => TaskCardModel.TaskName;
+            set { TaskCardModel.TaskName = value; OnPropertyChanged(nameof(TaskCardModel.TaskName)); }
         }
 
         // TODO: Make use of task description
@@ -19,8 +20,8 @@ namespace App.ViewModels {
         
         /* Updates the tasks colour dynamically if edited in UI */
         public string TaskColour {
-            get => _tcard.TaskColour;
-            set { _tcard.TaskColour = value; OnPropertyChanged(nameof(TaskColour)); }
+            get => TaskCardModel.TaskColour;
+            set { TaskCardModel.TaskColour = value; OnPropertyChanged(nameof(TaskColour)); }
         }
 
         // TODO: We should enum this.
@@ -30,7 +31,7 @@ namespace App.ViewModels {
         };
 
         public TaskCardViewModel(TaskCard taskCard) {
-            _tcard = taskCard;
+            TaskCardModel = taskCard;
         } 
 
         /* Helper for events - Sets the propertyName with the updated value if 

@@ -7,30 +7,51 @@ using App.Models;
 namespace App.ViewModels {
 
     public class BoardViewModel {
+        // Underlying board, ref needed to update state
+        public TempBoard BoardModel { get; }
         public string Name { get; set; }
         public ObservableCollection<ColumnViewModel> Columns { get; }  
 
         public BoardViewModel(TempBoard tempBoard) {
+            BoardModel = tempBoard;
             Name = tempBoard.BoardName;
 
-            Columns = new ObservableCollection<ColumnViewModel>(
-                    tempBoard.Columns.Select(c => new ColumnViewModel(c))
-                    );
+            // Removable if idx > 0
+            Columns = new(tempBoard.Columns.Select((c, idx) => CreateCVM(c, idx)));
+        }
+
+        /* Creates and sets up a new */
+        private ColumnViewModel CreateCVM(Column col, int idx) {
+            ColumnViewModel cvm = new(col, removable: idx > 0);
+            cvm.RemoveReq += OnRemoveReq; 
+            return cvm;
+        }
+
+        private void OnRemoveReq(ColumnViewModel cvm) {
+            // Standard redundant null check
+            if (Columns.Contains(cvm)) {
+                RemoveColumn(cvm);
+                BoardModel.Columns.Remove(cvm.ColumnModel);
+            }
         }
 
         /* Add a new column to the ObservableCollection of columns*/
         public void AddColumn() {
             Column column = new Column();
-            Columns.Add(new ColumnViewModel(column));
+            BoardModel.Columns.Add(column);
+
+            Columns.Add(CreateCVM(column, 1));     // 1 to indicate deletable column
             // JsonDB.SaveBoard()??
         }
 
         /* Removes a column to the ObservableCollection of columns*/
         public void RemoveColumn(ColumnViewModel column) {
             Columns.Remove(column);
+            BoardModel.Columns.Remove(column.ColumnModel); 
             // JsonDB.SaveBoard()??
         }
 
+        // TODO: Add underlying BoardModel updating on dragging
         /* Moves a column to the dropped location of the column*/
         public void MoveColumn(ColumnViewModel column, int idx) {
             // Maybe should be check in the view??
