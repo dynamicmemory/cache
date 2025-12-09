@@ -12,8 +12,9 @@ namespace App.ViewModels {
         /* Updates the value of the task name dynamically if edited in UI*/
         public string TaskName {
             get => TaskCardModel.TaskName;
-            set { TaskCardModel.TaskName = value; OnPropertyChanged(nameof(TaskCardModel.TaskName)); }
-        }
+            set { TaskCardModel.TaskName = value; 
+                OnPropertyChanged(nameof(TaskCardModel.TaskName)); }
+       }
 
         // TODO: Make use of task description
         // public string TaskDescription { get; set; }
@@ -21,7 +22,8 @@ namespace App.ViewModels {
         /* Updates the tasks colour dynamically if edited in UI */
         public string TaskColour {
             get => TaskCardModel.TaskColour;
-            set { TaskCardModel.TaskColour = value; OnPropertyChanged(nameof(TaskColour)); }
+            set { TaskCardModel.TaskColour = value; 
+                OnPropertyChanged(nameof(TaskColour)); }
         }
 
         // TODO: We should enum this.

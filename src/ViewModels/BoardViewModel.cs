@@ -66,5 +66,9 @@ namespace App.ViewModels {
             if (idx >= Columns.Count) idx = Columns.Count - 1;
             // JsonDB.SaveBoard()??
         }
+
+        public string printText() {
+            return "It worked"; 
+        }
     }
 }

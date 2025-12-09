@@ -1,0 +1,138 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:board="clr-namespace:App.Board"
+        xmlns:helpers="clr-namespace:App.Helpers"
+        x:Class="src.TempMainWindow"
+        x:DataType="board:Board"
+        Width="800"
+        Height="450"
+        Padding="10"
+        Title="Cache - Download your brain for better context switching."
+        Background="#D1D1D1">
+
+  <Window.Resources>
+    <helpers:StringToBrushConverter x:Key="StringToBrush"/>
+    <helpers:LuminanceTextFilter x:Key="LuminanceText"/>
+  </Window.Resources>
+
+
+  <DockPanel>
+
+    <!--TOP PANEL-->
+
+    <StackPanel DockPanel.Dock="Top" 
+                Orientation="Horizontal" 
+                Spacing="5" 
+                Margin="5"
+                >
+
+      <Button Content="Add Task" Command="{Binding FirstColumn.AddNewTask}" Background="#FFFFFF"/>
+      <Button Content="Add Column" Command="{Binding AddColumn}" Background="#FFFFFF"/>
+
+    </StackPanel>
+
+    <!--BINDS THE COLUMN LIST FROM BOARD-->
+
+    <!-- COLUMNS PANEL-->
+
+    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+    <ItemsControl ItemsSource="{Binding ColumnList}">
+
+      <!--SETS COLUMNS HORIZONTAL-->
+
+      <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <StackPanel Orientation="Horizontal"/>
+        </ItemsPanelTemplate>
+      </ItemsControl.ItemsPanel>
+
+      <!--A COLUMN-->
+
+      <ItemsControl.ItemTemplate>
+        <DataTemplate>
+          <Border BorderBrush="Black" 
+                  Padding="5" 
+                  Margin="0 0 10 0" 
+                  BorderThickness="1" 
+                  CornerRadius="4" 
+                  DragDrop.AllowDrop="True"
+                  Background="#969696">
+            <StackPanel Margin="10" 
+                        Width="200" 
+                        DragDrop.AllowDrop="True"
+                        Background="Transparent" 
+                        MinHeight="300">
+                
+              <!--COLUMN HEADER-->
+
+              <StackPanel Margin="10" Orientation="Horizontal">
+
+                <Grid>
+
+                  <TextBlock Text="{Binding ColName}" 
+                             IsVisible="{Binding IsNotEditing}"
+                             PointerPressed="TextBlock_PointerPressed"
+                             Cursor="Hand"
+                             FontSize="18" Margin="0 0 0 10">
+                    <TextBlock.Styles>
+                      <Style Selector="TextBlock:pointerover">
+                        <Setter Property="TextDecorations" Value="Underline"/>
+                      </Style>
+                    </TextBlock.Styles>
+
+                  </TextBlock>
+
+                  <TextBox Text="{Binding ColName, Mode=TwoWay}"
+                           IsVisible="{Binding IsEditing}"
+                           LostFocus="TextBox_LostFocus" 
+                           KeyDown="TextBox_KeyDown"/>
+                </Grid>
+
+                <!--Remove column button-->
+
+                <Button Content="X" Click="RemoveColumn_Click"
+                        IsVisible="{Binding Removable}"/>
+
+              </StackPanel>
+           
+              <!--TASK NAMES-->
+                <ItemsControl ItemsSource="{Binding TaskList}"> 
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+
+                      <Border BorderBrush="Black" Padding="5" Margin="0 0 0 5" 
+                              BorderThickness="1" CornerRadius="4" Width="200"
+                              Height="100" PointerPressed="TaskCard_PointerPressed"
+                              Cursor="Hand"
+                              Background="{Binding TaskColour, 
+                                           Converter={StaticResource StringToBrush}}">
+
+
+                        <TextBlock Text="{Binding TaskName}" 
+                                   TextWrapping="Wrap"
+                                   PointerPressed="TaskName_PointerPressed"
+                                   Foreground="{Binding TaskColour, 
+                                               Converter={StaticResource LuminanceText}}">
+                          <TextBlock.Styles>
+                            <Style Selector="TextBlock:pointerover">
+                              <Setter Property="TextDecorations" Value="Underline"/>
+                            </Style>
+                          </TextBlock.Styles>
+                        </TextBlock>
+
+                      </Border>
+
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+              </StackPanel>
+            </Border>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+
+      </ItemsControl>
+    </ScrollViewer>
+  </DockPanel>
+
+</Window>
