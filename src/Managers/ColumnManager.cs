@@ -9,7 +9,7 @@ namespace App.Managers {
         public event PropertyChangedEventHandler? PropertyChanged;
 
         [JsonIgnore]
-        public App.Board.Board ParentBoard { get; set; }
+        public App.TempBoard.TempBoard ParentBoard { get; set; }
         public ObservableCollection<TaskCard> TaskList { get; set; }
 
         // Controls X button visibility
@@ -41,7 +41,7 @@ namespace App.Managers {
 
         public ColumnManager() {}
 
-        public ColumnManager(App.Board.Board parent) {
+        public ColumnManager(App.TempBoard.TempBoard parent) {
             ParentBoard = parent;
             TaskList = new ObservableCollection<TaskCard>();
             _colName = "New Column";
@@ -49,7 +49,7 @@ namespace App.Managers {
 
         public void AddNewTask() {
             TaskList.Add(new TaskCard()); 
-            JsonDB.SaveBoard(ParentBoard);
+            TempJsonDB.SaveBoard(ParentBoard);
         }
 
         /* For moving a card within its own column*/
@@ -66,19 +66,19 @@ namespace App.Managers {
 
             
             TaskList.Move(oldidx, System.Math.Min(idx, TaskList.Count-1));
-            JsonDB.SaveBoard(ParentBoard);
+            TempJsonDB.SaveBoard(ParentBoard);
         }
         
         /* Removes a given taskcard from the columnlist*/
         public void RemoveTask(TaskCard card) {
             TaskList.Remove(card);
-            JsonDB.SaveBoard(ParentBoard);
+            TempJsonDB.SaveBoard(ParentBoard);
         }
 
         /* Inserts a given taskcard at the given index*/
         public void InsertTask(TaskCard card, int idx) {
             TaskList.Insert(idx, card); 
-            JsonDB.SaveBoard(ParentBoard);
+            TempJsonDB.SaveBoard(ParentBoard);
         }
 
         /* Helper function for updating the UI when a class property changes*/

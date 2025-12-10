@@ -7,17 +7,20 @@ using App.Models;
 namespace App.ViewModels {
 
     public class BoardViewModel {
-        // Underlying board, ref needed to update state
-        public TempBoard BoardModel { get; }
+        public Board BoardModel { get; }
         public string Name { get; set; }
         public ObservableCollection<ColumnViewModel> Columns { get; }  
 
-        public BoardViewModel(TempBoard tempBoard) {
-            BoardModel = tempBoard;
-            Name = tempBoard.BoardName;
-
+        public BoardViewModel() {
+            BoardModel = new Board();
+            Name = BoardModel.BoardName;
             // Removable if idx > 0
-            Columns = new(tempBoard.Columns.Select((c, idx) => CreateCVM(c, idx)));
+            Columns = new(BoardModel.Columns.Select((c, idx) => CreateCVM(c, idx)));
+
+            // Possibly load the Json.loadboard() here
+
+            // Currently adding a column for testing and building ui
+            AddColumn();
         }
 
         /* Creates and sets up a new */

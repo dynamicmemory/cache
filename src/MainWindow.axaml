@@ -6,6 +6,6 @@
         Title="Cache - Download your brain for better context switching."
         Background="#D1D1D1">
 
-    <views:MainWindowView />
+    <views:MainView/>
 
 </Window>

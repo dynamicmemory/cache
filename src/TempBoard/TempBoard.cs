@@ -1,13 +1,13 @@
 using System.Collections.ObjectModel;
 using App.Managers;
 
-namespace App.Board {
+namespace App.TempBoard {
 
-    public class Board {
+    public class TempBoard {
         public ObservableCollection<ColumnManager> ColumnList { get; set; } 
         public ColumnManager FirstColumn { get; set; }
 
-        public Board() {
+        public TempBoard() {
             // If no db exists we need the first board created to do the following
             ColumnList = new ObservableCollection<ColumnManager>();
             AddColumn();
@@ -18,7 +18,7 @@ namespace App.Board {
         /* Helper function for adding a new column to the ColumnList*/
         public void AddColumn() {
             ColumnList.Add(new ColumnManager(this));            
-            JsonDB.SaveBoard(this);
+            TempJsonDB.SaveBoard(this);
         }
 
         /* Helper function for removing a column as long as it's not the first
@@ -26,7 +26,7 @@ namespace App.Board {
         public void RemoveColumn(ColumnManager column) {
             if (column == FirstColumn) return;
             ColumnList.Remove(column);
-            JsonDB.SaveBoard(this);
+            TempJsonDB.SaveBoard(this);
         }
 
         // TODO: Come back to this when i add column switching
@@ -44,7 +44,7 @@ namespace App.Board {
             if (oldidx == idx) return;
 
             ColumnList.Move(oldidx, idx);
-            JsonDB.SaveBoard(this);
+            TempJsonDB.SaveBoard(this);
         }
     }
 }

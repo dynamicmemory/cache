@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:viewmodel="clr-namespace:App.ViewModels"
+    xmlns:views="clr-namespace:App.Views"
+    x:Class="App.Views.ColumnView"
+    x:DataType="viewmodel:ColumnViewModel"
+    Margin="10">
+
+    <ScrollViewer>
+        <StackPanel Width="300" MinHeight="400" Background="cyan">
+            <TextBlock Text="{Binding ColumnName}"/>
+            <ItemsControl ItemsSource="{Binding Tasks}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <views:TaskCardView/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </ScrollViewer>
+
+</UserControl>
+
+

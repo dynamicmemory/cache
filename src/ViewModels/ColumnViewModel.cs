@@ -38,6 +38,8 @@ namespace App.ViewModels {
             StopEditingCommand = new RelayCommand(() => IsEditing = false);
             RemoveColumnCommand = new RelayCommand(() => { 
                     RemoveReq?.Invoke(this); }, () => Removable);
+
+            AddNewTask();
         }
 
         public void AddNewTask() {

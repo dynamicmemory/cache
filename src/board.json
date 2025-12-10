@@ -178,6 +178,34 @@
       "ColName": "New Column",
       "IsNotEditing": true,
       "IsEditing": false
+    },
+    {
+      "TaskList": [
+        {
+          "TaskName": "asdasdas",
+          "TaskColour": "Bulma",
+          "AvailableColours": [
+            "Magenta",
+            "Purple",
+            "Bulma",
+            "Green",
+            "Lime",
+            "Blue",
+            "Trunks",
+            "Yellow",
+            "Orange",
+            "Red",
+            "BluPurp",
+            "White",
+            "Transp"
+          ]
+        }
+      ],
+      "Removable": true,
+      "NameEditable": true,
+      "ColName": "New Column",
+      "IsNotEditing": true,
+      "IsEditing": false
     }
   ],
   "FirstColumn": {

@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:views="clr-namespace:App.Views"
+             xmlns:viewmodel="clr-namespace:App.ViewModels"
+             x:Class="App.Views.MainView" 
+             x:DataType="viewmodel:MainViewModel">
+
+
+    <views:BoardView DataContext="{Binding Board}"/>
+
+</UserControl>
+
+

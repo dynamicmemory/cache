@@ -10,7 +10,7 @@ using Avalonia.Input;
 using Avalonia.VisualTree;
 using App.Managers;
 using App.Models;
-using App.Board;
+using App.TempBoard;
 using App.Views;
 using System.Linq;
 using System;
@@ -19,10 +19,10 @@ namespace src;
 
 public partial class TempMainWindow : Window {
 
-    public Board TaskBoard { get; }
+    public TempBoard TaskBoard { get; }
 
     public TempMainWindow() {
-        TaskBoard = JsonDB.LoadBoard();
+        TaskBoard = TempJsonDB.LoadBoard();
         InitializeComponent();
 
         // TODO: These two handlers define taskcard dragging, update to newer way
@@ -61,7 +61,7 @@ public partial class TempMainWindow : Window {
         if (sender is TextBox tb && tb.DataContext is ColumnManager col) {
             col.IsEditing = false;
 
-            JsonDB.SaveBoard(TaskBoard);
+            TempJsonDB.SaveBoard(TaskBoard);
         }
     }
 
@@ -70,7 +70,7 @@ public partial class TempMainWindow : Window {
             col.IsEditing = false;
             e.Handled = true;
 
-            JsonDB.SaveBoard(TaskBoard);
+            TempJsonDB.SaveBoard(TaskBoard);
         }
     }
 
@@ -99,7 +99,7 @@ public partial class TempMainWindow : Window {
 
         // TODO: MOVE? Needed to update taskcard title and colour (and everything else)
         if (result)
-            JsonDB.SaveBoard(TaskBoard);
+            TempJsonDB.SaveBoard(TaskBoard);
     }
 
     /* Mostly handles the starting of a click and drag on a task card*/

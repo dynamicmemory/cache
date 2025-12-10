@@ -7,6 +7,6 @@ public partial class MainWindow : Window {
 
     public MainWindow() {
         InitializeComponent();
-        this.DataContext = new MainWindowView();        
+        this.DataContext = new MainView();        
     }
 }
