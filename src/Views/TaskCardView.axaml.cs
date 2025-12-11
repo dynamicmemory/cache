@@ -6,7 +6,6 @@ public partial class TaskCardView : UserControl {
 
     public TaskCardView() {
         InitializeComponent();
-        // DataContext = new BoardViewModel();
     }
 
 }

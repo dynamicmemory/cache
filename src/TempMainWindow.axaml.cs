@@ -80,7 +80,7 @@ public partial class TempMainWindow : Window {
     //       a full rewrite once we get it up and running... this will get temporarily
     //       nasty looking 
     
-    private TaskCard? _draggingCard;
+    private TempTaskCard? _draggingCard;
     private ColumnManager? _dragSourceColumn;
 
     /* Handles title of card clicks to open up edit popup*/
@@ -91,7 +91,7 @@ public partial class TempMainWindow : Window {
         if (sender is not Control control) 
             return;
 
-        if (control.DataContext is not TaskCard task) 
+        if (control.DataContext is not TempTaskCard task) 
             return;
 
         var popup = new TaskPopup(task);
@@ -108,7 +108,7 @@ public partial class TempMainWindow : Window {
             return;
         if (sender is not Control control) return;
 
-        if (control.DataContext is not TaskCard task) return;
+        if (control.DataContext is not TempTaskCard task) return;
 
         var ancestor = control.GetVisualAncestors()
                               .OfType<Control>()
@@ -147,7 +147,7 @@ public partial class TempMainWindow : Window {
         
         if (!e.Data.Contains("task-card")) return;
         // the task card we are dropping 
-        var dropped = e.Data.Get("task-card") as TaskCard;
+        var dropped = e.Data.Get("task-card") as TempTaskCard;
         if (dropped == null) return;
 
         var control = e.Source as Control;
@@ -164,9 +164,9 @@ public partial class TempMainWindow : Window {
         var taskControl = control?
             .GetVisualAncestors()
             .OfType<Control>()
-            .FirstOrDefault(c => c.DataContext is TaskCard);
+            .FirstOrDefault(c => c.DataContext is TempTaskCard);
 
-        var targetTask = taskControl?.DataContext as TaskCard;
+        var targetTask = taskControl?.DataContext as TempTaskCard;
         int insertIdx = targetColumn.TaskList.Count;
 
         if (targetTask != null) 

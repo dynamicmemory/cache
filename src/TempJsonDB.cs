@@ -39,7 +39,7 @@ public static class TempJsonDB {
 
         // Converting to observable lists for Avalonia
         foreach (var col in board.ColumnList) {
-            col.TaskList = new ObservableCollection<TaskCard>(col.TaskList);
+            col.TaskList = new ObservableCollection<TempTaskCard>(col.TaskList);
             col.ParentBoard = board;
         }
 

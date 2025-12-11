@@ -1,8 +1,10 @@
 // TODO: Switch from tempBoard to Board once we fully swap the system over.
 // TODO: Figure out our json persistence when time comes.
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using System.Linq;
 using App.Models;
+using App.Helpers;
 
 namespace App.ViewModels {
 
@@ -11,12 +13,15 @@ namespace App.ViewModels {
         public string Name { get; set; }
         public ObservableCollection<ColumnViewModel> Columns { get; }  
 
+        public ICommand AddColumnCommand { get; }
+
         public BoardViewModel() {
             BoardModel = new Board();
             Name = BoardModel.BoardName;
             // Removable if idx > 0
             Columns = new(BoardModel.Columns.Select((c, idx) => CreateCVM(c, idx)));
 
+            AddColumnCommand = new RelayCommand(AddColumn);
             // Possibly load the Json.loadboard() here
 
             // Currently adding a column for testing and building ui
@@ -30,6 +35,8 @@ namespace App.ViewModels {
             return cvm;
         }
 
+        /* Helper function for a column to remove itself from the columns list
+         * Works as a hook that is called when a column calls remove on itself*/
         private void OnRemoveReq(ColumnViewModel cvm) {
             // Standard redundant null check
             if (Columns.Contains(cvm)) {

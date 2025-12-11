@@ -4,17 +4,33 @@
              xmlns:views="clr-namespace:App.Views"
              x:Class="App.Views.BoardView"
              x:DataType="viewmodel:BoardViewModel"
-             Background="magenta" >
+             Background="magenta" Padding="10">
 
-             <ScrollViewer>
-               <ItemsControl ItemsSource="{Binding Columns}">
-                 <ItemsControl.ItemTemplate>
-                   <DataTemplate>
-                     <views:ColumnView />
-                   </DataTemplate>
-                 </ItemsControl.ItemTemplate>
-               </ItemsControl>
-             </ScrollViewer>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                  VerticalScrollBarVisibility="Disabled">
+        <StackPanel Orientation="Horizontal" >
+
+            <!-- 1.Render Columns -->
+            <ItemsControl ItemsSource="{Binding Columns}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <views:ColumnView />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <!-- 2.Add Column Button -->
+            <Button Content="Add Column" Margin="100"
+                    Command="{Binding AddColumnCommand}"/>
+
+        </StackPanel>
+    </ScrollViewer>
 
 </UserControl>
 

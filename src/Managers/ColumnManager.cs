@@ -10,7 +10,7 @@ namespace App.Managers {
 
         [JsonIgnore]
         public App.TempBoard.TempBoard ParentBoard { get; set; }
-        public ObservableCollection<TaskCard> TaskList { get; set; }
+        public ObservableCollection<TempTaskCard> TaskList { get; set; }
 
         // Controls X button visibility
         public bool Removable => this != ParentBoard?.FirstColumn;
@@ -43,17 +43,17 @@ namespace App.Managers {
 
         public ColumnManager(App.TempBoard.TempBoard parent) {
             ParentBoard = parent;
-            TaskList = new ObservableCollection<TaskCard>();
+            TaskList = new ObservableCollection<TempTaskCard>();
             _colName = "New Column";
         }
 
         public void AddNewTask() {
-            TaskList.Add(new TaskCard()); 
+            TaskList.Add(new TempTaskCard()); 
             TempJsonDB.SaveBoard(ParentBoard);
         }
 
         /* For moving a card within its own column*/
-        public void MoveTask(TaskCard card, int idx) {
+        public void MoveTask(TempTaskCard card, int idx) {
             if (card == null) return;
 
             int oldidx = TaskList.IndexOf(card);
@@ -70,13 +70,13 @@ namespace App.Managers {
         }
         
         /* Removes a given taskcard from the columnlist*/
-        public void RemoveTask(TaskCard card) {
+        public void RemoveTask(TempTaskCard card) {
             TaskList.Remove(card);
             TempJsonDB.SaveBoard(ParentBoard);
         }
 
         /* Inserts a given taskcard at the given index*/
-        public void InsertTask(TaskCard card, int idx) {
+        public void InsertTask(TempTaskCard card, int idx) {
             TaskList.Insert(idx, card); 
             TempJsonDB.SaveBoard(ParentBoard);
         }

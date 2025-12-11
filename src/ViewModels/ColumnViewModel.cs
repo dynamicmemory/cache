@@ -25,6 +25,7 @@ namespace App.ViewModels {
         public event Action<ColumnViewModel>? RemoveReq;
         public ICommand StartEditingCommand { get; }
         public ICommand StopEditingCommand { get; }
+        public ICommand AddTaskCardCommand { get; }
         public ICommand RemoveColumnCommand { get; }
 
         public ColumnViewModel(Column column, bool removable) {
@@ -36,13 +37,15 @@ namespace App.ViewModels {
 
             StartEditingCommand = new RelayCommand(() => IsEditing = true);
             StopEditingCommand = new RelayCommand(() => IsEditing = false);
+            AddTaskCardCommand = new RelayCommand(AddTaskCard);
             RemoveColumnCommand = new RelayCommand(() => { 
                     RemoveReq?.Invoke(this); }, () => Removable);
 
-            AddNewTask();
+
+            AddTaskCard();
         }
 
-        public void AddNewTask() {
+        public void AddTaskCard() {
             TaskCard taskCard = new TaskCard();
             ColumnModel.Tasks.Add(taskCard);
 

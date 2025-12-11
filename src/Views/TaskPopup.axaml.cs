@@ -8,13 +8,13 @@ namespace App.Views {
 
     public partial class TaskPopup : Window {
 
-        private TaskCard? _task { get; }
+        private TempTaskCard? _task { get; }
 
         public TaskPopup() {
             InitializeComponent();
         }
 
-        public TaskPopup(TaskCard task) {
+        public TaskPopup(TempTaskCard task) {
             InitializeComponent();
             _task = task;
             DataContext = _task;

@@ -5,7 +5,6 @@
              x:Class="App.Views.MainView" 
              x:DataType="viewmodel:MainViewModel">
 
-
     <views:BoardView DataContext="{Binding Board}"/>
 
 </UserControl>

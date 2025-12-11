@@ -1,12 +1,16 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:viewmodel="clr-namespace:App.ViewModels"
-    xmlns:views="clr-namespace:App.Views"
-    x:Class="App.Views.TaskCardView"
-    x:DataType="viewmodel:TaskCardViewModel">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:viewmodel="clr-namespace:App.ViewModels"
+             xmlns:views="clr-namespace:App.Views"
+             x:Class="App.Views.TaskCardView"
+             x:DataType="viewmodel:TaskCardViewModel">
 
-    <Border Background="white">
+    <Border Background="{Binding TaskColour}" BorderBrush="Black" 
+            BorderThickness="1" CornerRadius="2"
+            Margin="0,0,0,5" Padding="10" Height="100">
+
         <TextBlock Text="{Binding TaskName}"></TextBlock>
+
     </Border>
 
 </UserControl>
