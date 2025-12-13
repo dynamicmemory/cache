@@ -1,8 +1,14 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:helpers="clr-namespace:App.Helpers"
              x:Class="src.App"
              RequestedThemeVariant="Light">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.Resources>
+        <helpers:StringToBrushConverter x:Key="StringToBrushConverter"/>
+        <helpers:LuminanceTextFilter x:Key="LuminanceTextFilter"/>
+    </Application.Resources>
 
     <Application.Styles>
         <FluentTheme />

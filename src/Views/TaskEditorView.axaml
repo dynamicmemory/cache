@@ -1,0 +1,26 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewmodel="clr-namespace:App.ViewModels"
+        x:Class="App.Views.TaskEditorView"
+        x:DataType="viewmodel:TaskEditorViewModel"
+        Width="400" Height="300" Title="Edit Task" >
+
+    <StackPanel Spacing="10" Margin="10">
+
+        <TextBox Text="{Binding TaskName}" Watermark="Title"/>
+
+        <TextBox Text="{Binding TaskDescription}" Watermark="Description"
+                 Height="120" />
+
+        <ComboBox ItemsSource="{Binding AvailableColours}"
+                  SelectedItem="{Binding TaskColour}" />
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" 
+                    Spacing="10" >
+            <Button Content="Cancel" Click="Cancel_Click"/>
+            <Button Content="Save" Click="Save_Click"/>
+        </StackPanel>
+
+    </StackPanel>
+
+</Window>

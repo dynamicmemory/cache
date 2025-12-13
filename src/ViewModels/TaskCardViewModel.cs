@@ -1,7 +1,11 @@
-
-using System.Collections.Generic;
+using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Controls;
 using System.ComponentModel;
+using System.Windows.Input;
 using App.Models;
+using App.Helpers;
+using App.Views;
 
 namespace App.ViewModels {
 
@@ -12,29 +16,68 @@ namespace App.ViewModels {
         /* Updates the value of the task name dynamically if edited in UI*/
         public string TaskName {
             get => TaskCardModel.TaskName;
-            set { TaskCardModel.TaskName = value; 
-                OnPropertyChanged(nameof(TaskCardModel.TaskName)); }
-       }
+            set {
+                if (TaskCardModel.TaskName != value) {
+                    TaskCardModel.TaskName = value; 
+                    OnPropertyChanged(nameof(TaskName)); 
+                }
+            }
+        }
 
-        // TODO: Make use of task description
-        // public string TaskDescription { get; set; }
+        // private string _taskDescription;
+        public string TaskDescription { 
+            get => TaskCardModel.TaskDescription;
+            set { 
+                if (TaskCardModel.TaskDescription != value) {
+                    TaskCardModel.TaskDescription = value;
+                    OnPropertyChanged(nameof(TaskDescription)); 
+                }
+            }
+        }
         
         /* Updates the tasks colour dynamically if edited in UI */
         public string TaskColour {
             get => TaskCardModel.TaskColour;
-            set { TaskCardModel.TaskColour = value; 
-                OnPropertyChanged(nameof(TaskColour)); }
+            set { 
+                if (TaskCardModel.TaskColour != value) {
+                    TaskCardModel.TaskColour = value; 
+                    OnPropertyChanged(nameof(TaskColour)); 
+                }
+            }
         }
 
         // TODO: We should enum this.
-        public List<string> AvailableColours { get; } = new List<string>() { 
-            "Magenta", "Purple", "Bulma", "Green", "Lime", "Blue",
-            "Trunks", "Yellow", "Orange", "Red", "BluPurp", "White", "Transp", 
-        };
+        // public List<string> AvailableColours { get; } = new List<string>() { 
+        //     "Magenta", "Purple", "Bulma", "Green", "Lime", "Blue",
+        //     "Trunks", "Yellow", "Orange", "Red", "BluPurp", "White", "Transp", 
+        // };
+        
+        public ICommand OpenEditorCommand { get; }
 
         public TaskCardViewModel(TaskCard taskCard) {
             TaskCardModel = taskCard;
+            // _taskDescription = TaskCardModel.TaskDescription;
+
+            OpenEditorCommand = new RelayCommand(OpenEditor);
+
+
         } 
+
+        private async void OpenEditor() { 
+            var tevm = new TaskEditorViewModel(TaskCardModel);
+            var editor = new TaskEditorView { 
+                DataContext = tevm,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner};
+
+            if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop && 
+                    desktop.MainWindow is Window mainWindow) {
+                await editor.ShowDialog(mainWindow);
+                    OnPropertyChanged(nameof(TaskName)); 
+                    OnPropertyChanged(nameof(TaskDescription)); 
+                    OnPropertyChanged(nameof(TaskColour)); 
+            }
+        }
+            
 
         /* Helper for events - Sets the propertyName with the updated value if 
          * it has dynamically changed at run time*/ 

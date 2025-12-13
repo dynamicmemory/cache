@@ -5,10 +5,12 @@ namespace App.Models {
 
         public string TaskName { get; set; }
         public string TaskColour { get; set; }
+        public string TaskDescription { get; set; }
 
         /* Constructor */
         public TaskCard() {
-            TaskName = "New Task";
+            TaskName = "Task Name";
+            TaskDescription = "A new task";
             TaskColour = "yellow";
         } 
 
