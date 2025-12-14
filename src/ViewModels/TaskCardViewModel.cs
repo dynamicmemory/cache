@@ -46,35 +46,25 @@ namespace App.ViewModels {
             }
         }
 
-        // TODO: We should enum this.
-        // public List<string> AvailableColours { get; } = new List<string>() { 
-        //     "Magenta", "Purple", "Bulma", "Green", "Lime", "Blue",
-        //     "Trunks", "Yellow", "Orange", "Red", "BluPurp", "White", "Transp", 
-        // };
-        
         public ICommand OpenEditorCommand { get; }
 
         public TaskCardViewModel(TaskCard taskCard) {
             TaskCardModel = taskCard;
             // _taskDescription = TaskCardModel.TaskDescription;
-
             OpenEditorCommand = new RelayCommand(OpenEditor);
-
-
         } 
 
         private async void OpenEditor() { 
-            var tevm = new TaskEditorViewModel(TaskCardModel);
+            var tevm = new TaskEditorViewModel(this);
             var editor = new TaskEditorView { 
                 DataContext = tevm,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner};
 
-            if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop && 
-                    desktop.MainWindow is Window mainWindow) {
+            // Makes the editor popup appear in the center of the app Window
+            // Ugly solution but possibly an Arch problem i'm having atm.
+            if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop && desktop.MainWindow is Window mainWindow) {
                 await editor.ShowDialog(mainWindow);
-                    OnPropertyChanged(nameof(TaskName)); 
-                    OnPropertyChanged(nameof(TaskDescription)); 
-                    OnPropertyChanged(nameof(TaskColour)); 
+
             }
         }
             

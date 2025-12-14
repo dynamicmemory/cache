@@ -11,14 +11,13 @@ public partial class TaskEditorView : Window {
     }
 
     private void Save_Click(object? sender, RoutedEventArgs e) {
-        if (DataContext is TaskEditorViewModel vm) {
-            vm.Save();
-        }
-
         Close();
     }
 
     private void Cancel_Click(object? sender, RoutedEventArgs e) {
+        if (DataContext is TaskEditorViewModel vm) {
+            vm.Cancel();
+        }
         Close();
     }
 }

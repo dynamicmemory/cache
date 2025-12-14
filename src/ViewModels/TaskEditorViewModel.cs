@@ -5,73 +5,41 @@ using App.Models;
 namespace App.ViewModels;
 
 public class TaskEditorViewModel : INotifyPropertyChanged {
-    // We dont want to edit the original until we click save
-    private readonly TaskCard _original;
+    private readonly TaskCardViewModel _original;
+    private readonly string _taskName;
+    private readonly string _taskDescription;
+    private readonly string _taskColour;
 
-    private string _taskName;
-    public string TaskName { get => _taskName;
-        set {
-            if (_taskName != value) {
-                _taskName = value;
-                OnPropertyChanged(nameof(TaskName));
-            }
-        }
-    }
+    public string TaskName { 
+        get => _original.TaskName; 
+        set => _original.TaskName = value; }
 
-    private string _taskDescription;
-    public string TaskDescription
-    {
-        get => _taskDescription;
-        set
-        {
-            if (_taskDescription != value)
-            {
-                _taskDescription = value;
-                OnPropertyChanged(nameof(TaskDescription));
-            }
-        }
-    }
+    public string TaskDescription{ 
+        get => _original.TaskDescription; 
+        set => _original.TaskDescription= value; }
 
-    private string _taskColour;
-    public string TaskColour
-    {
-        get => _taskColour;
-        set
-        {
-            if (_taskColour != value)
-            {
-                _taskColour = value;
-                OnPropertyChanged(nameof(TaskColour));
-            }
-        }
-    }
+    public string TaskColour{ 
+        get => _original.TaskColour; 
+        set => _original.TaskColour = value; }
 
     public IReadOnlyList<string> AvailableColours { get; } = new[] {
         "Magenta", "Purple", "Bulma", "Green", "Lime", "Blue", "Yellow", 
         "Orange", "Red", "White"
     };
 
-    public TaskEditorViewModel(TaskCard task) {
+    public TaskEditorViewModel(TaskCardViewModel task) {
         _original = task;
+        // Keep a copy of the originals incase of cancelling the edit
         _taskName = task.TaskName;
         _taskDescription = task.TaskDescription;
         _taskColour = task.TaskColour;
-
-        // Makes clones of all the properties
-        TaskName = task.TaskName;
-        TaskDescription = task.TaskDescription;
-        TaskColour = task.TaskColour;
     }
 
-    /* Overwrite the original tasks features on save only*/
-    public void Save() {
-        _original.TaskName = TaskName;
-        _original.TaskDescription = TaskDescription;
-        _original.TaskColour = TaskColour;
-
-        // OnPropertyChanged(nameof(TaskName));
-        // OnPropertyChanged(nameof(TaskDescription));
-        // OnPropertyChanged(nameof(TaskColour));
+    /* Retores the original values on cancel only*/
+    public void Cancel() {
+        _original.TaskName = _taskName;
+        _original.TaskDescription = _taskDescription;
+        _original.TaskColour = _taskColour;
     }
 
     /* Helper function for updating the UI when a class property changes*/

@@ -11,9 +11,8 @@ namespace App.Models {
         public TaskCard() {
             TaskName = "Task Name";
             TaskDescription = "A new task";
-            TaskColour = "yellow";
+            TaskColour = "White";
         } 
-
     }
 }
 
