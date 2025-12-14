@@ -1,51 +1,58 @@
-// TODO: Turned off persistence until i rewrite the load logic for new ViewModel conversion from models
 using System;
 using System.Text.Json;
-using System.Collections.ObjectModel;
 using System.IO;
 using App.Models;
 using App.ViewModels;
-using App.Managers;
+using System.Linq;
 
-public static class JsonDB {
+public static class JsonDB
+{
     private const string FilePath = "board.json";
 
-    /* Temporary solution for program persistence, saves a current board*/
-    public static void SaveBoard(Board board) {
+    public static void SaveBoard(BoardViewModel boardVm)
+    {
+        // Sync VM -> model
+        boardVm.BoardModel.Columns.Clear();
+        foreach (var colVm in boardVm.Columns)
+        {
+            // Sync column name and tasks
+            colVm.ColumnModel.ColumnName = colVm.ColumnName;
+            colVm.ColumnModel.Tasks.Clear();
+            colVm.ColumnModel.Tasks.AddRange(colVm.Tasks.Select(t => t.TaskCardModel));
+
+            boardVm.BoardModel.Columns.Add(colVm.ColumnModel);
+        }
 
         var options = new JsonSerializerOptions { WriteIndented = true };
-        var json = JsonSerializer.Serialize(board, options);
+        var json = JsonSerializer.Serialize(boardVm.BoardModel, options);
         File.WriteAllText(FilePath, json);
     }
 
-    /* Loads state from json file or creates a new board to use if no json is 
-     * found*/
-    public static Board LoadBoard() {
-        if (!File.Exists(FilePath)) 
-            return new Board();
-        
-        Board board;
-        try {
-        string json = File.ReadAllText(FilePath);
-        board = JsonSerializer.Deserialize<Board>(json)!;
-        // board.Columns = new ObservableCollection<ColumnViewModel>(board.Columns);
-        } catch (JsonException e) {
-            Console.WriteLine(e.Message);
-            return new Board();
+    public static BoardViewModel LoadBoard()
+    {
+        if (!File.Exists(FilePath))
+            return new BoardViewModel();
+
+        try
+        {
+            string json = File.ReadAllText(FilePath);
+            var board = JsonSerializer.Deserialize<Board>(json)!;
+
+            // Convert to ViewModels
+            var boardVm = new BoardViewModel();
+            boardVm.Columns.Clear();
+            foreach (var col in board.Columns)
+            {
+                var colVm = new ColumnViewModel(col, removable: true);
+                boardVm.Columns.Add(colVm);
+            }
+
+            return boardVm;
         }
-
-        // You must set the FirstColumn or else Null explosion inside the json
-        // if (board.Columns.Count > 0)
-            // board.FirstColumn = board.ColumnList[0];
-
-        // Converting to observable lists for Avalonia
-        foreach (var col in board.Columns) {
-            // col.Tasks = new ObservableCollection<TaskCard>(col.Tasks);
-            // col.ParentBoard = board;
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error loading board: {e.Message}");
+            return new BoardViewModel();
         }
-
-        // TODO: Add safety condition to only save on successful loading of everything
-        SaveBoard(board);
-        return board;
     }
 }

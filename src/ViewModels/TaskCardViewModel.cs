@@ -1,8 +1,12 @@
+
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows.Input;
+using System.Linq;
+using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls;
-using System.ComponentModel;
-using System.Windows.Input;
 using App.Models;
 using App.Helpers;
 using App.Views;
@@ -11,7 +15,9 @@ namespace App.ViewModels {
 
     public class TaskCardViewModel : INotifyPropertyChanged {
         public event PropertyChangedEventHandler? PropertyChanged;
+        public event Action? AnUpdateHasOccured;
         public TaskCard TaskCardModel;
+
 
         /* Updates the value of the task name dynamically if edited in UI*/
         public string TaskName {
@@ -20,6 +26,7 @@ namespace App.ViewModels {
                 if (TaskCardModel.TaskName != value) {
                     TaskCardModel.TaskName = value; 
                     OnPropertyChanged(nameof(TaskName)); 
+                    AnUpdateHasOccured?.Invoke();
                 }
             }
         }
@@ -31,6 +38,7 @@ namespace App.ViewModels {
                 if (TaskCardModel.TaskDescription != value) {
                     TaskCardModel.TaskDescription = value;
                     OnPropertyChanged(nameof(TaskDescription)); 
+                    AnUpdateHasOccured?.Invoke();
                 }
             }
         }
@@ -42,6 +50,7 @@ namespace App.ViewModels {
                 if (TaskCardModel.TaskColour != value) {
                     TaskCardModel.TaskColour = value; 
                     OnPropertyChanged(nameof(TaskColour)); 
+                    AnUpdateHasOccured?.Invoke();
                 }
             }
         }
@@ -67,7 +76,6 @@ namespace App.ViewModels {
 
             }
         }
-            
 
         /* Helper for events - Sets the propertyName with the updated value if 
          * it has dynamically changed at run time*/ 

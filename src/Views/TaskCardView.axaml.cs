@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.VisualTree;
 using App.ViewModels;
 using Avalonia.Input;
 
@@ -15,4 +16,21 @@ public partial class TaskCardView : UserControl {
             vm.OpenEditorCommand.Execute(null);
     }
 
+private void Task_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
+{
+    if (DataContext is TaskCardViewModel taskVm)
+    {
+        // Find the ColumnViewModel via the visual tree
+        if (VisualRoot is null) return;
+
+        // The DataContext of the parent ColumnView is your source column
+        if (this.FindAncestorOfType<ColumnView>()?.DataContext is ColumnViewModel sourceColumn)
+        {
+            var dataObject = new DataObject();
+            dataObject.Set("task", taskVm);
+            dataObject.Set("sourceColumn", sourceColumn); // crucial
+            DragDrop.DoDragDrop(e, dataObject, DragDropEffects.Move);
+        }
+    }
+}
 }

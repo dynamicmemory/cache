@@ -6,6 +6,7 @@ using System.Linq;
 using App.Models;
 using App.Helpers;
 
+
 namespace App.ViewModels {
 
     public class BoardViewModel {
@@ -18,20 +19,22 @@ namespace App.ViewModels {
         public BoardViewModel() {
             BoardModel = new Board();
             Name = BoardModel.BoardName;
-            // Removable if idx > 0
             Columns = new(BoardModel.Columns.Select((c, idx) => CreateCVM(c, idx)));
+            foreach (var t in Columns) t.AnUpdateHasOccured += OnChildChanged;
 
             AddColumnCommand = new RelayCommand(AddColumn);
-            // Possibly load the Json.loadboard() here
-
-            // Currently adding a column for testing and building ui
-            AddColumn();
         }
 
         /* Creates and sets up a new */
         private ColumnViewModel CreateCVM(Column col, int idx) {
             ColumnViewModel cvm = new(col, removable: idx > 0);
+            cvm.AnUpdateHasOccured += OnChildChanged;
             cvm.RemoveReq += OnRemoveReq; 
+
+            foreach (var t in cvm.Tasks) {
+                t.AnUpdateHasOccured += cvm.OnChildChanged;
+            }
+
             return cvm;
         }
 
@@ -45,36 +48,44 @@ namespace App.ViewModels {
             }
         }
 
+        /* Triggered if a column or task updates itself, bubbles upto board to 
+         * save. */
+        private void OnChildChanged() {
+            JsonDB.SaveBoard(this);
+        }
+
         /* Add a new column to the ObservableCollection of columns*/
         public void AddColumn() {
             Column column = new Column();
             BoardModel.Columns.Add(column);
 
             Columns.Add(CreateCVM(column, 1));     // 1 to indicate deletable column
-            // JsonDB.SaveBoard()??
+            JsonDB.SaveBoard(this);
         }
 
         /* Removes a column to the ObservableCollection of columns*/
         public void RemoveColumn(ColumnViewModel column) {
             Columns.Remove(column);
             BoardModel.Columns.Remove(column.ColumnModel); 
-            // JsonDB.SaveBoard()??
+            JsonDB.SaveBoard(this);
         }
 
         // TODO: Add underlying BoardModel updating on dragging
         /* Moves a column to the dropped location of the column*/
         public void MoveColumn(ColumnViewModel column, int idx) {
-            // Maybe should be check in the view??
-            if (column == null) return;
 
             int currentIdx = Columns.IndexOf(column);
-            // Maybe impossible, dont know yet??
             if (currentIdx == -1) return;
 
-            // Dragged above first column or below last column in list visually
-            if (idx < 0) idx = 0;
-            if (idx >= Columns.Count) idx = Columns.Count - 1;
-            // JsonDB.SaveBoard()??
+            // clamp
+            idx = System.Math.Max(0, System.Math.Min(idx, Columns.Count - 1));
+
+            if (currentIdx == idx || currentIdx + 1 == idx) return;
+
+            Columns.Move(currentIdx, idx);
+            // TODO: Update the model with helper function that swaps list order once column dragging works
+            // BoardModel.Columns.Move(currentIdx, idx); // keep model in sync if needed
+            JsonDB.SaveBoard(this);
         }
     }
 }

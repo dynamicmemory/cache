@@ -11,7 +11,11 @@
         <StackPanel Orientation="Horizontal" >
 
             <!-- 1.Render Columns -->
-            <ItemsControl ItemsSource="{Binding Columns}">
+            <ItemsControl ItemsSource="{Binding Columns}"
+                          DragDrop.AllowDrop="True"
+                          DragDrop.DragOver="Columns_DragOver"
+                          DragDrop.Drop="Columns_Drop">
+
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal" />

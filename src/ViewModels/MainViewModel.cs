@@ -4,6 +4,11 @@ public class MainViewModel {
     public BoardViewModel Board { get; }
 
     public MainViewModel() {
-        Board = new BoardViewModel();
+        try {
+            Board = JsonDB.LoadBoard();
+        }
+        catch {
+            Board = new BoardViewModel();
+        }
     }
 }

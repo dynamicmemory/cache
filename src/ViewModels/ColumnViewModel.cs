@@ -31,12 +31,14 @@ namespace App.ViewModels {
             set { if (_columnName != value) {
                       _columnName = value;
                       OnPropertyChanged(nameof(ColumnName));
+                      AnUpdateHasOccured?.Invoke();
                 }
             }
             // Optional to save the board here if i include a board ref in this vm
         }
 
         public event Action<ColumnViewModel>? RemoveReq;
+        public event Action? AnUpdateHasOccured;
         public ICommand StartEditingCommand { get; }
         public ICommand StopEditingCommand { get; }
         public ICommand AddTaskCardCommand { get; }
@@ -49,6 +51,8 @@ namespace App.ViewModels {
             Removable = removable;
 
             Tasks = new(column.Tasks.Select(t => new TaskCardViewModel(t)));
+            // Subcribe all tasks to the AnUpdateHasOccured event 
+            foreach (var t in Tasks) t.AnUpdateHasOccured += OnChildChanged;
 
             StartEditingCommand = new RelayCommand(() => IsEditing = true);
             StopEditingCommand = new RelayCommand(() => IsEditing = false);
@@ -60,17 +64,26 @@ namespace App.ViewModels {
 
             RemoveColumnCommand = new RelayCommand(() => { 
                     RemoveReq?.Invoke(this); }, () => Removable);
-
-            AddTaskCard();
         }
 
         public void AddTaskCard() {
             TaskCard taskCard = new TaskCard();
             ColumnModel.Tasks.Add(taskCard);
 
-            Tasks.Add(new TaskCardViewModel(taskCard)); 
-            // Optional to save the board here if i include a board ref in this vm
-            // JsonDB.SaveBoard(ParentBoard);
+            var tvm = new TaskCardViewModel(taskCard);
+            tvm.AnUpdateHasOccured += OnChildChanged;
+
+            Tasks.Add(tvm); 
+
+            // Alert the board a new task was created.
+            AnUpdateHasOccured?.Invoke();
+
+        }
+
+        /* Alerts the column to any changes to a taskcard, this bubbles up to 
+         * the board for saving */
+        public void OnChildChanged() {
+            AnUpdateHasOccured?.Invoke();
         }
 
         /* For moving a card within its own column*/
@@ -86,23 +99,23 @@ namespace App.ViewModels {
             if (oldidx == idx || oldidx + 1 == idx) return;
 
             Tasks.Move(oldidx, System.Math.Min(idx, Tasks.Count-1));
-            // Optional to save the board here if i include a board ref in this vm
-            // JsonDB.SaveBoard(ParentBoard);
+
+            AnUpdateHasOccured?.Invoke();
         }
 
         /* Removes a given taskcard from the columnlist*/
         public void RemoveTask(TaskCardViewModel card) {
             Tasks.Remove(card);
             ColumnModel.Tasks.Remove(card.TaskCardModel);
-            // Optional to save the board here if i include a board ref in this vm
-            // JsonDB.SaveBoard(ParentBoard);
+
+            AnUpdateHasOccured?.Invoke();
         }
 
         /* Inserts a given taskcard at the given index*/
         public void InsertTask(TaskCardViewModel card, int idx) {
             Tasks.Insert(idx, card); 
-            // Optional to save the board here if i include a board ref in this vm
-            // JsonDB.SaveBoard(ParentBoard);
+
+            AnUpdateHasOccured?.Invoke();
         }
 
         /* Helper function for updating the UI when a class property changes*/
