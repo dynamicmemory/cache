@@ -12,29 +12,29 @@ namespace App.ViewModels {
         public Column ColumnModel { get; }
         public ObservableCollection<TaskCardViewModel> Tasks { get; }
         
-        public bool Removable { get; }
         private bool _isEditing; 
         public bool IsEditing { 
             get => _isEditing;
-            set { if (_isEditing != value) {
-                      _isEditing = value;
-                      OnPropertyChanged(nameof(IsEditing));
-                      OnPropertyChanged(nameof(IsNotEditing));
-                  }
+            set { 
+                if (_isEditing != value) {
+                    _isEditing = value;
+                    OnPropertyChanged(nameof(IsEditing));
+                    OnPropertyChanged(nameof(IsNotEditing));
+                }
             }
         }
+
         public bool IsNotEditing => !IsEditing;
 
         private string _columnName;
         public string ColumnName { 
             get => _columnName; 
-            set { if (_columnName != value) {
-                      _columnName = value;
-                      OnPropertyChanged(nameof(ColumnName));
-                      AnUpdateHasOccured?.Invoke();
+            set { 
+                if (_columnName != value) {
+                    _columnName = value;
+                    OnPropertyChanged(nameof(ColumnName));
                 }
             }
-            // Optional to save the board here if i include a board ref in this vm
         }
 
         public event Action<ColumnViewModel>? RemoveReq;
@@ -45,25 +45,24 @@ namespace App.ViewModels {
         public ICommand CommitColumnNameCommand { get; }
         public ICommand RemoveColumnCommand { get; }
 
-        public ColumnViewModel(Column column, bool removable) {
+        public ColumnViewModel(Column column) {
             ColumnModel = column;
             _columnName = column.ColumnName;
-            Removable = removable;
 
             Tasks = new(column.Tasks.Select(t => new TaskCardViewModel(t)));
             // Subcribe all tasks to the AnUpdateHasOccured event 
-            foreach (var t in Tasks) t.AnUpdateHasOccured += OnChildChanged;
+            // foreach (var t in Tasks) t.AnUpdateHasOccured += OnChildChanged;
 
             StartEditingCommand = new RelayCommand(() => IsEditing = true);
             StopEditingCommand = new RelayCommand(() => IsEditing = false);
             AddTaskCardCommand = new RelayCommand(AddTaskCard);
             CommitColumnNameCommand = new RelayCommand(() => {
                     ColumnModel.ColumnName = ColumnName;
+                    AnUpdateHasOccured?.Invoke();
                     IsEditing = false;
                     });
 
-            RemoveColumnCommand = new RelayCommand(() => { 
-                    RemoveReq?.Invoke(this); }, () => Removable);
+            RemoveColumnCommand = new RelayCommand(() => { RemoveReq?.Invoke(this); });
         }
 
         public void AddTaskCard() {
@@ -77,7 +76,6 @@ namespace App.ViewModels {
 
             // Alert the board a new task was created.
             AnUpdateHasOccured?.Invoke();
-
         }
 
         /* Alerts the column to any changes to a taskcard, this bubbles up to 
@@ -100,6 +98,10 @@ namespace App.ViewModels {
 
             Tasks.Move(oldidx, System.Math.Min(idx, Tasks.Count-1));
 
+            // Adds the taskcard to the new index for the model and saves
+            TaskCard Temp = ColumnModel.Tasks[oldidx];
+            ColumnModel.Tasks.RemoveAt(oldidx);
+            ColumnModel.Tasks.Insert(idx, Temp);
             AnUpdateHasOccured?.Invoke();
         }
 
@@ -114,6 +116,7 @@ namespace App.ViewModels {
         /* Inserts a given taskcard at the given index*/
         public void InsertTask(TaskCardViewModel card, int idx) {
             Tasks.Insert(idx, card); 
+            ColumnModel.Tasks.Insert(idx, card.TaskCardModel);
 
             AnUpdateHasOccured?.Invoke();
         }

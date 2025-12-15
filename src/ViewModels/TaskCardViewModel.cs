@@ -1,8 +1,5 @@
-
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
-using System.Linq;
 using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -16,8 +13,8 @@ namespace App.ViewModels {
     public class TaskCardViewModel : INotifyPropertyChanged {
         public event PropertyChangedEventHandler? PropertyChanged;
         public event Action? AnUpdateHasOccured;
+        public ICommand OpenEditorCommand { get; }
         public TaskCard TaskCardModel;
-
 
         /* Updates the value of the task name dynamically if edited in UI*/
         public string TaskName {
@@ -55,8 +52,6 @@ namespace App.ViewModels {
             }
         }
 
-        public ICommand OpenEditorCommand { get; }
-
         public TaskCardViewModel(TaskCard taskCard) {
             TaskCardModel = taskCard;
             // _taskDescription = TaskCardModel.TaskDescription;
@@ -73,7 +68,6 @@ namespace App.ViewModels {
             // Ugly solution but possibly an Arch problem i'm having atm.
             if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop && desktop.MainWindow is Window mainWindow) {
                 await editor.ShowDialog(mainWindow);
-
             }
         }
 

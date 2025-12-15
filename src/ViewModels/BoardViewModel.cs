@@ -1,11 +1,8 @@
-// TODO: Switch from tempBoard to Board once we fully swap the system over.
-// TODO: Figure out our json persistence when time comes.
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Linq;
 using App.Models;
 using App.Helpers;
-
 
 namespace App.ViewModels {
 
@@ -16,18 +13,18 @@ namespace App.ViewModels {
 
         public ICommand AddColumnCommand { get; }
 
-        public BoardViewModel() {
-            BoardModel = new Board();
+        public BoardViewModel(Board board) {
+            BoardModel = board;
             Name = BoardModel.BoardName;
-            Columns = new(BoardModel.Columns.Select((c, idx) => CreateCVM(c, idx)));
-            foreach (var t in Columns) t.AnUpdateHasOccured += OnChildChanged;
+            Columns = new(BoardModel.Columns.Select(c => CreateCVM(c)));
 
             AddColumnCommand = new RelayCommand(AddColumn);
+            // foreach (var t in Columns) t.AnUpdateHasOccured += OnChildChanged;
         }
 
         /* Creates and sets up a new */
-        private ColumnViewModel CreateCVM(Column col, int idx) {
-            ColumnViewModel cvm = new(col, removable: idx > 0);
+        public ColumnViewModel CreateCVM(Column col) {
+            ColumnViewModel cvm = new(col);
             cvm.AnUpdateHasOccured += OnChildChanged;
             cvm.RemoveReq += OnRemoveReq; 
 
@@ -59,7 +56,7 @@ namespace App.ViewModels {
             Column column = new Column();
             BoardModel.Columns.Add(column);
 
-            Columns.Add(CreateCVM(column, 1));     // 1 to indicate deletable column
+            Columns.Add(CreateCVM(column));     // 1 to indicate deletable column
             JsonDB.SaveBoard(this);
         }
 

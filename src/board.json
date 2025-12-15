@@ -3,18 +3,33 @@
     {
       "Tasks": [
         {
+          "TaskName": "asdfasdf",
+          "TaskColour": "White",
+          "TaskDescription": "A new task"
+        },
+        {
           "TaskName": "Task Name",
           "TaskColour": "White",
           "TaskDescription": "A new task"
         }
       ],
-      "ColumnName": "New Column"
+      "ColumnName": "it worked?"
     },
     {
       "Tasks": [
         {
           "TaskName": "Task Name",
           "TaskColour": "White",
+          "TaskDescription": "A new task"
+        },
+        {
+          "TaskName": "Task Name",
+          "TaskColour": "White",
+          "TaskDescription": "A new task"
+        },
+        {
+          "TaskName": "Task Name",
+          "TaskColour": "Blue",
           "TaskDescription": "A new task"
         }
       ],

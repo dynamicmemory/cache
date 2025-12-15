@@ -8,7 +8,7 @@ public class MainViewModel {
             Board = JsonDB.LoadBoard();
         }
         catch {
-            Board = new BoardViewModel();
+            Board = new BoardViewModel(new Models.Board());
         }
     }
 }
