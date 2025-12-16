@@ -27,7 +27,6 @@ namespace App.Helpers {
                 // Return white for dark colors, black for light colors
                 return brightness < 128 ? Brushes.White : Brushes.Black;
             }
-
             return Brushes.Black;
         }
 

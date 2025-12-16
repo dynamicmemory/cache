@@ -2,7 +2,6 @@
 namespace App.Models {
 
     public class TaskCard {
-
         public string TaskName { get; set; }
         public string TaskColour { get; set; }
         public string TaskDescription { get; set; }
@@ -11,7 +10,7 @@ namespace App.Models {
         public TaskCard() {
             TaskName = "Task Name";
             TaskDescription = "A new task";
-            TaskColour = "White";
+            TaskColour = "Tranparent";
         } 
     }
 }

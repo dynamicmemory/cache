@@ -11,8 +11,17 @@ namespace App.ViewModels {
     public class ColumnViewModel : INotifyPropertyChanged {
         public Column ColumnModel { get; }
         public ObservableCollection<TaskCardViewModel> Tasks { get; }
-        
+        public event Action<ColumnViewModel>? RemoveReq;
+        public event Action? AnUpdateHasOccured;
+        public ICommand StartEditingCommand { get; }
+        public ICommand StopEditingCommand { get; }
+        public ICommand AddTaskCardCommand { get; }
+        public ICommand CommitColumnNameCommand { get; }
+        public ICommand RemoveColumnCommand { get; }
+        private string _columnName;
         private bool _isEditing; 
+        public bool IsNotEditing => !IsEditing;
+
         public bool IsEditing { 
             get => _isEditing;
             set { 
@@ -24,9 +33,6 @@ namespace App.ViewModels {
             }
         }
 
-        public bool IsNotEditing => !IsEditing;
-
-        private string _columnName;
         public string ColumnName { 
             get => _columnName; 
             set { 
@@ -37,21 +43,11 @@ namespace App.ViewModels {
             }
         }
 
-        public event Action<ColumnViewModel>? RemoveReq;
-        public event Action? AnUpdateHasOccured;
-        public ICommand StartEditingCommand { get; }
-        public ICommand StopEditingCommand { get; }
-        public ICommand AddTaskCardCommand { get; }
-        public ICommand CommitColumnNameCommand { get; }
-        public ICommand RemoveColumnCommand { get; }
-
         public ColumnViewModel(Column column) {
             ColumnModel = column;
             _columnName = column.ColumnName;
 
             Tasks = new(column.Tasks.Select(t => new TaskCardViewModel(t)));
-            // Subcribe all tasks to the AnUpdateHasOccured event 
-            // foreach (var t in Tasks) t.AnUpdateHasOccured += OnChildChanged;
 
             StartEditingCommand = new RelayCommand(() => IsEditing = true);
             StopEditingCommand = new RelayCommand(() => IsEditing = false);
@@ -62,7 +58,7 @@ namespace App.ViewModels {
                     IsEditing = false;
                     });
 
-            RemoveColumnCommand = new RelayCommand(() => { RemoveReq?.Invoke(this); });
+            RemoveColumnCommand = new RelayCommand(() => RemoveReq?.Invoke(this));
         }
 
         public void AddTaskCard() {

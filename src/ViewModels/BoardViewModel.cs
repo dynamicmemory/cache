@@ -19,7 +19,6 @@ namespace App.ViewModels {
             Columns = new(BoardModel.Columns.Select(c => CreateCVM(c)));
 
             AddColumnCommand = new RelayCommand(AddColumn);
-            // foreach (var t in Columns) t.AnUpdateHasOccured += OnChildChanged;
         }
 
         /* Creates and sets up a new */
@@ -56,7 +55,7 @@ namespace App.ViewModels {
             Column column = new Column();
             BoardModel.Columns.Add(column);
 
-            Columns.Add(CreateCVM(column));     // 1 to indicate deletable column
+            Columns.Add(CreateCVM(column));  
             JsonDB.SaveBoard(this);
         }
 
@@ -70,7 +69,6 @@ namespace App.ViewModels {
         // TODO: Add underlying BoardModel updating on dragging
         /* Moves a column to the dropped location of the column*/
         public void MoveColumn(ColumnViewModel column, int idx) {
-
             int currentIdx = Columns.IndexOf(column);
             if (currentIdx == -1) return;
 
