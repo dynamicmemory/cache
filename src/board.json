@@ -3,6 +3,16 @@
     {
       "Tasks": [
         {
+          "TaskName": "Task Nameasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf",
+          "TaskColour": "Tranparent",
+          "TaskDescription": "A new task"
+        },
+        {
+          "TaskName": "Task Name",
+          "TaskColour": "White",
+          "TaskDescription": "A new task"
+        },
+        {
           "TaskName": "asdfasdf",
           "TaskColour": "White",
           "TaskDescription": "A new task"
@@ -18,21 +28,24 @@
     {
       "Tasks": [
         {
-          "TaskName": "Task Name",
-          "TaskColour": "White",
-          "TaskDescription": "A new task"
-        },
-        {
-          "TaskName": "Task Name",
-          "TaskColour": "White",
-          "TaskDescription": "A new task"
-        },
-        {
-          "TaskName": "Task Name",
+          "TaskName": "asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf",
           "TaskColour": "Blue",
+          "TaskDescription": "A new task"
+        },
+        {
+          "TaskName": "Task Name",
+          "TaskColour": "White",
           "TaskDescription": "A new task"
         }
       ],
+      "ColumnName": "New Column"
+    },
+    {
+      "Tasks": [],
+      "ColumnName": "New Column"
+    },
+    {
+      "Tasks": [],
       "ColumnName": "New Column"
     }
   ],

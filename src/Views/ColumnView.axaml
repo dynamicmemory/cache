@@ -7,23 +7,25 @@
              Margin="0, 0, 10, 0">  <!-- Margin only on right side of column -->
 
     <Border Background="cyan" BorderBrush="black" BorderThickness="1" 
-            CornerRadius="5" Padding="10" Focusable="True" 
-            PointerPressed="Column_PointerPressed">
+            CornerRadius="5" Padding="10" Focusable="True" >
 
         <Grid RowDefinitions="Auto, *">
 
             <!-- Header (Column Name + AddTask and RemoveColumn Buttons -->
             <DockPanel Grid.Row="0" LastChildFill="False" Margin="0, 0, 0, 5">
 
+            <Button Content="#" Width="20" Height="20" DockPanel.Dock="Left"
+                    PointerPressed="Column_PointerPressed"/>
+
                 <!-- When Displaying column name -->
                 <TextBlock Text="{Binding ColumnName}" FontWeight="Bold"
-                           MinWidth="150" Cursor="Hand" Padding="5" 
+                           MinWidth="100" MaxWidth="100" Cursor="Hand" Padding="5" 
                            IsVisible="{Binding IsNotEditing}"
                            PointerPressed="EditColumnName"/>
 
                 <!-- When Editing column name -->
                 <TextBox x:Name="TextBoxName" Text="{Binding ColumnName, Mode=TwoWay}" 
-                         MinWidth="150" IsVisible="{Binding IsEditing}"
+                         MinWidth="100" MaxWidth="100" IsVisible="{Binding IsEditing}"
                          KeyUp="EnterKeyHit" LostFocus="NameLostFocus"/>
 
                 <Button Content="+" Command="{Binding AddTaskCardCommand}"
