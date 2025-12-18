@@ -8,16 +8,17 @@
     <Border Background="{Binding TaskColour, 
                          Converter={StaticResource StringToBrushConverter}}" 
             BorderBrush="Black" BorderThickness="1" CornerRadius="2"
-            Margin="0,0,0,5" Padding="10" Height="100" >
+            Margin="0,0,0,5" Padding="5" Height="80" 
+            MinWidth="240" Width="220" MaxWidth="270">
 
         <Grid RowDefinitions="Auto, *">
 
             <!-- Title (No drag, editor open only) -->
             <TextBlock Text="{Binding TaskName}" FontWeight="Bold"
-                       Foreground="{Binding TaskColour, 
-                                    Converter={StaticResource LuminanceTextFilter}}"
+                       Foreground="{Binding TaskColour, Converter={StaticResource LuminanceTextFilter}}"
                        Cursor="Hand" PointerPressed="EditTask"
-                       TextWrapping="Wrap" MaxWidth="150"/>
+                       TextWrapping="Wrap" MaxWidth="220" TextTrimming="CharacterEllipsis"
+                       MaxLines="2"/>
 
             <!-- Body (Drag only) -->
         <Border Grid.Row="2" Background="Transparent" PointerPressed="Task_PointerPressed">

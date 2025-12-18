@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace App.ViewModels;
 
 public class TaskEditorViewModel : INotifyPropertyChanged {
-    private readonly TaskCardViewModel _original;
+    public TaskCardViewModel _original;
     private readonly string _taskName;
     private readonly string _taskDescription;
     private readonly string _taskColour;
@@ -40,6 +40,7 @@ public class TaskEditorViewModel : INotifyPropertyChanged {
         _original.TaskDescription = _taskDescription;
         _original.TaskColour = _taskColour;
     }
+
 
     /* Helper function for updating the UI when a class property changes*/
     public event PropertyChangedEventHandler? PropertyChanged;

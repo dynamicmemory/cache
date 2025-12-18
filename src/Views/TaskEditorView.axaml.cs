@@ -20,4 +20,12 @@ public partial class TaskEditorView : Window {
         }
         Close();
     }
+
+    private void Delete_Click(object? sender, RoutedEventArgs e) {
+        if (DataContext is TaskEditorViewModel vm ) {
+            // Remove the current task
+            vm._original.ParentColumn.RemoveTask(vm._original);
+            Close();
+        }
+    }
 }

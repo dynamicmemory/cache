@@ -15,6 +15,8 @@ namespace App.ViewModels {
         public event Action? AnUpdateHasOccured;
         public ICommand OpenEditorCommand { get; }
         public TaskCard TaskCardModel;
+        // Must store parentColumn so a card can remove itself from the list
+        public ColumnViewModel ParentColumn { get; set; }
 
         /* Updates the value of the task name dynamically if edited in UI*/
         public string TaskName {
@@ -52,8 +54,9 @@ namespace App.ViewModels {
             }
         }
 
-        public TaskCardViewModel(TaskCard taskCard) {
+        public TaskCardViewModel(TaskCard taskCard, ColumnViewModel parent) {
             TaskCardModel = taskCard;
+            ParentColumn = parent;
             // _taskDescription = TaskCardModel.TaskDescription;
             OpenEditorCommand = new RelayCommand(OpenEditor);
         } 

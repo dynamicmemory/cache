@@ -47,7 +47,7 @@ namespace App.ViewModels {
             ColumnModel = column;
             _columnName = column.ColumnName;
 
-            Tasks = new(column.Tasks.Select(t => new TaskCardViewModel(t)));
+            Tasks = new(column.Tasks.Select(t => new TaskCardViewModel(t, this)));
 
             StartEditingCommand = new RelayCommand(() => IsEditing = true);
             StopEditingCommand = new RelayCommand(() => IsEditing = false);
@@ -58,6 +58,7 @@ namespace App.ViewModels {
                     IsEditing = false;
                     });
 
+            // Adds a listener to the board to delete the column on button press
             RemoveColumnCommand = new RelayCommand(() => RemoveReq?.Invoke(this));
         }
 
@@ -65,7 +66,7 @@ namespace App.ViewModels {
             TaskCard taskCard = new TaskCard();
             ColumnModel.Tasks.Add(taskCard);
 
-            var tvm = new TaskCardViewModel(taskCard);
+            var tvm = new TaskCardViewModel(taskCard, this);
             tvm.AnUpdateHasOccured += OnChildChanged;
 
             Tasks.Add(tvm); 
@@ -82,17 +83,16 @@ namespace App.ViewModels {
 
         /* For moving a card within its own column*/
         public void MoveTask(TaskCardViewModel card, int idx) {
+            // Card doesnt exist?
             if (card == null) return;
-
             int oldidx = Tasks.IndexOf(card);
-            if (oldidx == -1) return;
+            if (oldidx == idx) return;        // Ignore a drop in the same spot
 
-            if (idx < 0) idx = 0;
-            if (idx > Tasks.Count) idx = Tasks.Count;
+            // If card dropped at bottom of the column
+            if (idx >= Tasks.Count) 
+                idx = Tasks.Count-1;
 
-            if (oldidx == idx || oldidx + 1 == idx) return;
-
-            Tasks.Move(oldidx, System.Math.Min(idx, Tasks.Count-1));
+            Tasks.Move(oldidx, idx);
 
             // Adds the taskcard to the new index for the model and saves
             TaskCard Temp = ColumnModel.Tasks[oldidx];

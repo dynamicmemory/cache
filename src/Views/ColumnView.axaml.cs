@@ -1,4 +1,4 @@
-using System.Windows;
+using System;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -34,12 +34,22 @@ public partial class ColumnView : UserControl {
 
     // COLUMN DRAGGING 
 
+    // TODO: MIGHT NOT NEED THIS ANYMORE
     private void Column_PointerPressed(object? sender, PointerPressedEventArgs e) {
         if (DataContext is ColumnViewModel columnVm) {
             // Creating a static object drag manager from helpers to use new avalonia DataTransfer api
             DragManager.DraggedItem = columnVm;
             DragDrop.DoDragDropAsync(e, new DataTransfer(), DragDropEffects.Move);
         }
+    }
+
+    private void ColumnDragHandle_PointerPressed(object? sender, PointerPressedEventArgs e) {
+        if (DataContext is not ColumnViewModel columnVm)
+            return;
+
+        DragManager.DraggedItem = columnVm;
+        e.Handled=true;
+        DragDrop.DoDragDropAsync(e, new DataTransfer(), DragDropEffects.Move);
     }
 
     // TASK DRAGGING
@@ -53,33 +63,45 @@ public partial class ColumnView : UserControl {
         if (DragManager.DraggedItem is not (TaskCardViewModel taskVm, ColumnViewModel sourceColumn)) 
             return;
 
-        if (sender is ItemsControl itemsControl && itemsControl.DataContext is ColumnViewModel targetColumn) {
-            int insertIndex = CalculateInsertIndex(itemsControl, e.GetPosition(itemsControl));
+        // Find the control that holds the list of tasks as we are storing it 
+        // in the parent scrollbar so we can insert into empty columns
+        var itemsControl = this.FindControl<ItemsControl>("TaskList");
+        if (itemsControl?.DataContext is not ColumnViewModel targetColumn)
+            return;
+    
+        // Get the index of the drop zone in the column
+        var point = e.GetPosition(itemsControl);
+        int insertIndex = CalculateInsertIndex(itemsControl, point);
 
-            if (sourceColumn == targetColumn) {
-                // Single-column reordering
-                sourceColumn.MoveTask(taskVm, insertIndex);
-            }
-            else {
-                // Inter-column move
-                sourceColumn.RemoveTask(taskVm);
-                targetColumn.InsertTask(taskVm, insertIndex);
-            }
+        if (sourceColumn == targetColumn) {
+            // Single-column reordering
+            // Console.Write(sourceColumn.Tasks.IndexOf(taskVm)+ "\n");
+            sourceColumn.MoveTask(taskVm, insertIndex);
         }
+        else {
+            // Inter-column move
+            sourceColumn.RemoveTask(taskVm);
+            targetColumn.InsertTask(taskVm, insertIndex);
+        }
+
         DragManager.DraggedItem = null;
     }
 
     private int CalculateInsertIndex(ItemsControl itemsControl, Avalonia.Point point) {
-        int itemCount = itemsControl.ItemCount;
+        int count = itemsControl.ItemCount;
 
-        for (int i = 0; i < itemCount; i++) {
+        for (int i = 0; i < count; i++) {
             var container = itemsControl.ContainerFromIndex(i);
+
             if (container is Control c) {
                 var bounds = c.Bounds;
-                if (point.Y < bounds.Top + bounds.Height / 2)
+
+                if (point.Y < bounds.Top + bounds.Height) {
+                    // Console.Write(i);
                     return i;
+                }
             }
         }
-        return itemCount; // insert at end
+        return count; // insert at end
     }
 }

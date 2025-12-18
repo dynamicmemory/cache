@@ -28,11 +28,6 @@ public partial class TaskCardView : UserControl {
         if (this.FindAncestorOfType<ColumnView>()?.DataContext is ColumnViewModel sourceColumn) {
             DragManager.DraggedItem = (taskVm, sourceColumn);
             DragDrop.DoDragDropAsync(e, new DataTransfer(), DragDropEffects.Move);
-
-            // var dataObject = new DataObject();
-            // dataObject.Set("task", taskVm);
-            // dataObject.Set("sourceColumn", sourceColumn); // crucial
-            // DragDrop.DoDragDrop(e, dataObject, DragDropEffects.Move);
         }
     }
 }

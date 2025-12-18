@@ -30,7 +30,7 @@
             </ItemsControl>
 
             <!-- 2.Add Column Button -->
-            <Button Content="Add Column" Margin="100"
+            <Button Content="Add Column" Margin="50"
                     Command="{Binding AddColumnCommand}"/>
 
         </StackPanel>

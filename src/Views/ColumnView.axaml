@@ -7,25 +7,31 @@
              Margin="0, 0, 10, 0">  <!-- Margin only on right side of column -->
 
     <Border Background="cyan" BorderBrush="black" BorderThickness="1" 
-            CornerRadius="5" Padding="10" Focusable="True" >
+            CornerRadius="5" Padding="10" Focusable="True" 
+            MinWidth="250" Width="270" MaxWidth="300">
 
         <Grid RowDefinitions="Auto, *">
 
             <!-- Header (Column Name + AddTask and RemoveColumn Buttons -->
             <DockPanel Grid.Row="0" LastChildFill="False" Margin="0, 0, 0, 5">
 
-            <Button Content="#" Width="20" Height="20" DockPanel.Dock="Left"
-                    PointerPressed="Column_PointerPressed"/>
+                <!-- Displays the Handle for dragging a column-->
+                <Border Background="Transparent" Padding="5" Cursor="Hand" 
+                        PointerPressed="ColumnDragHandle_PointerPressed">
+                    <TextBlock Text="≡" FontSize="20" Cursor="Hand"
+                               VerticalAlignment="Center"/>
+                </Border>
 
                 <!-- When Displaying column name -->
-                <TextBlock Text="{Binding ColumnName}" FontWeight="Bold"
-                           MinWidth="100" MaxWidth="100" Cursor="Hand" Padding="5" 
+                <TextBlock Text="{Binding ColumnName}" FontWeight="Bold" FontSize="20"
+                           MinWidth="150" MaxWidth="150" Cursor="Hand" Padding="5" 
                            IsVisible="{Binding IsNotEditing}"
-                           PointerPressed="EditColumnName"/>
+                           PointerPressed="EditColumnName"
+                           TextTrimming="CharacterEllipsis" MaxLines="1"/>
 
                 <!-- When Editing column name -->
                 <TextBox x:Name="TextBoxName" Text="{Binding ColumnName, Mode=TwoWay}" 
-                         MinWidth="100" MaxWidth="100" IsVisible="{Binding IsEditing}"
+                         MinWidth="150" MaxWidth="150" IsVisible="{Binding IsEditing}"
                          KeyUp="EnterKeyHit" LostFocus="NameLostFocus"/>
 
                 <Button Content="+" Command="{Binding AddTaskCardCommand}"
@@ -37,11 +43,11 @@
 
 
             <!-- Task List -->
-            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" >
-                <ItemsControl ItemsSource="{Binding Tasks}"
-                              DragDrop.AllowDrop="True"
-                              DragDrop.DragOver="TasksList_DragOver"
-                              DragDrop.Drop="TasksList_Drop">
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" 
+                          DragDrop.AllowDrop="True"
+                          DragDrop.DragOver="TasksList_DragOver"
+                          DragDrop.Drop="TasksList_Drop">
+                <ItemsControl x:Name="TaskList" ItemsSource="{Binding Tasks}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <views:TaskCardView/>

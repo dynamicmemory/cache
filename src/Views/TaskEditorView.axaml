@@ -21,6 +21,11 @@
             <Button Content="Save" Click="Save_Click"/>
         </StackPanel>
 
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" 
+                    Spacing="10" >
+            <Button Content="DELETE TASK" Click="Delete_Click" Background="Red"/>
+        </StackPanel>
+
     </StackPanel>
 
 </Window>

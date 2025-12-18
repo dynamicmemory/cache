@@ -66,20 +66,22 @@ namespace App.ViewModels {
             JsonDB.SaveBoard(this);
         }
 
-        // TODO: Add underlying BoardModel updating on dragging
         /* Moves a column to the dropped location of the column*/
         public void MoveColumn(ColumnViewModel column, int idx) {
-            int currentIdx = Columns.IndexOf(column);
-            if (currentIdx == -1) return;
+            int oldIdx = Columns.IndexOf(column);
 
-            // clamp
-            idx = System.Math.Max(0, System.Math.Min(idx, Columns.Count - 1));
+            // clamp idx to stay inbounds of the column list
+            if (idx >= Columns.Count) idx = Columns.Count -1;
+            // If dropping a column in the same spot, skip
+            if (oldIdx == idx) return;
 
-            if (currentIdx == idx || currentIdx + 1 == idx) return;
-
-            Columns.Move(currentIdx, idx);
-            // TODO: Update the model with helper function that swaps list order once column dragging works
-            // BoardModel.Columns.Move(currentIdx, idx); // keep model in sync if needed
+            Columns.Move(oldIdx, idx);
+            
+            // Adds the column order change to the underlying boardmodel
+            BoardModel.Columns.Clear();
+            foreach(ColumnViewModel columnVm in Columns) {
+                BoardModel.Columns.Add(columnVm.ColumnModel);
+            }
             JsonDB.SaveBoard(this);
         }
     }

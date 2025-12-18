@@ -34,7 +34,7 @@ public partial class BoardView : UserControl {
             var container = itemsControl.ContainerFromIndex(i);
             if (container is Control c) {
                 var bounds = c.Bounds;
-                if (point.X < bounds.Left + bounds.Width / 2)
+                if (point.X < bounds.Left + bounds.Width)
                     return i;
             }
         }
