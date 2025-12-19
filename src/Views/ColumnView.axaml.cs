@@ -1,3 +1,4 @@
+/* */
 using System;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -15,6 +16,9 @@ public partial class ColumnView : UserControl {
 
     // COLUMN HEADER EDITING
 
+    /* Handles changing the column name to be editable and therefore switching 
+     * the textblock into a textbox 
+     */
     private void EditColumnName(object? sender, PointerPressedEventArgs e) {
         if (DataContext is ColumnViewModel vm) { 
             vm.StartEditingCommand.Execute(null);
@@ -22,28 +26,36 @@ public partial class ColumnView : UserControl {
         }
     }
 
+    /* Handles the case where a user uses "enter" to finish editing the title */
     private void EnterKeyHit(object? sender, KeyEventArgs e) {
         if (e.Key == Key.Enter && DataContext is ColumnViewModel vm)
             vm.CommitColumnNameCommand.Execute(null);
     }
 
+    /* Handles the case where a user clicks away to finish editing the title */
     private void NameLostFocus(object? sender, RoutedEventArgs e) {
         if (DataContext is ColumnViewModel vm)
             vm.CommitColumnNameCommand.Execute(null);
     }
 
-    // COLUMN DRAGGING 
+    /* Confirms if user wants to delete column, sends to remove column command 
+     * if true 
+     */
+    private async void DeleteColumn_Click(object? sender, RoutedEventArgs e) {
+        if (DataContext is ColumnViewModel vm) {
+            var window = this.VisualRoot as Avalonia.Controls.Window;
+            if (window == null) return;
 
-    // TODO: MIGHT NOT NEED THIS ANYMORE
-    private void Column_PointerPressed(object? sender, PointerPressedEventArgs e) {
-        if (DataContext is ColumnViewModel columnVm) {
-            // Creating a static object drag manager from helpers to use new avalonia DataTransfer api
-            DragManager.DraggedItem = columnVm;
-            DragDrop.DoDragDropAsync(e, new DataTransfer(), DragDropEffects.Move);
+            var popup = new ConfirmDialogView("This Column has tasks. Are you sure you want to remove it?");
+            bool conf = await popup.ShowDialog<bool>(window);
+            if (conf) vm.RemoveColumnCommand.Execute(null);
         }
     }
 
-    private void ColumnDragHandle_PointerPressed(object? sender, PointerPressedEventArgs e) {
+    // COLUMN DRAGGING 
+
+  /* Handles the start of the column dragging*/
+  private void ColumnDragHandle_PointerPressed(object? sender, PointerPressedEventArgs e) {
         if (DataContext is not ColumnViewModel columnVm)
             return;
 
@@ -59,6 +71,7 @@ public partial class ColumnView : UserControl {
         e.DragEffects = DragDropEffects.Move;
     }
 
+    /* Handles where a taskcard was dropped in a column */
     private void TasksList_Drop(object? sender, DragEventArgs e) {
         if (DragManager.DraggedItem is not (TaskCardViewModel taskVm, ColumnViewModel sourceColumn)) 
             return;
@@ -75,7 +88,6 @@ public partial class ColumnView : UserControl {
 
         if (sourceColumn == targetColumn) {
             // Single-column reordering
-            // Console.Write(sourceColumn.Tasks.IndexOf(taskVm)+ "\n");
             sourceColumn.MoveTask(taskVm, insertIndex);
         }
         else {
@@ -83,10 +95,10 @@ public partial class ColumnView : UserControl {
             sourceColumn.RemoveTask(taskVm);
             targetColumn.InsertTask(taskVm, insertIndex);
         }
-
         DragManager.DraggedItem = null;
     }
 
+    /* Calculates the index of the object that was dragged and dropped */
     private int CalculateInsertIndex(ItemsControl itemsControl, Avalonia.Point point) {
         int count = itemsControl.ItemCount;
 
@@ -97,7 +109,6 @@ public partial class ColumnView : UserControl {
                 var bounds = c.Bounds;
 
                 if (point.Y < bounds.Top + bounds.Height) {
-                    // Console.Write(i);
                     return i;
                 }
             }

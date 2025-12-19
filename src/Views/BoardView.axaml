@@ -4,7 +4,7 @@
              xmlns:views="clr-namespace:App.Views"
              x:Class="App.Views.BoardView"
              x:DataType="viewmodel:BoardViewModel"
-             Background="magenta" Padding="10">
+             Background="gray" Padding="10">
 
     <ScrollViewer HorizontalScrollBarVisibility="Auto"
                   VerticalScrollBarVisibility="Disabled">
@@ -31,6 +31,7 @@
 
             <!-- 2.Add Column Button -->
             <Button Content="Add Column" Margin="50"
+                    Background="#D1D1D1"
                     Command="{Binding AddColumnCommand}"/>
 
         </StackPanel>

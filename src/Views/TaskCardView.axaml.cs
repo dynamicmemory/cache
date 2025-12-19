@@ -1,3 +1,6 @@
+/* Code behind for the taskcardview, Handles editing taskcards and initiating 
+ * the dragging logic 
+ */
 using Avalonia.Controls;
 using Avalonia.VisualTree;
 using App.ViewModels;
@@ -12,6 +15,9 @@ public partial class TaskCardView : UserControl {
         InitializeComponent();
     }
 
+    /* Handles clicks on the taskcard name to open up the editor to make changes 
+     * to the card 
+     */ 
     private void EditTask(object sender, PointerPressedEventArgs e) {
         // Handle the call for dragging (We want the edit panel not to drag)
         e.Handled=true;
@@ -19,10 +25,11 @@ public partial class TaskCardView : UserControl {
             vm.OpenEditorCommand.Execute(null);
     }
 
-    private void Task_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e) {
-        if (DataContext is not TaskCardViewModel taskVm) {
-            return;
-        }
+    /* Handles the start of a drag and passes the context off to the columnview 
+     * for the dropping portion 
+     */
+    private void Task_PointerPressed(object? sender, PointerPressedEventArgs e) {
+        if (DataContext is not TaskCardViewModel taskVm) return;
 
         // The DataContext of the parent ColumnView is your source column
         if (this.FindAncestorOfType<ColumnView>()?.DataContext is ColumnViewModel sourceColumn) {

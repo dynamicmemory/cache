@@ -1,3 +1,6 @@
+/* Called when any UI button or action is clicked or submitted, controls how a 
+ * command processed. Implements the ICommand interface 
+ */
 using System;
 using System.Windows.Input;
 

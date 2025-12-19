@@ -1,3 +1,6 @@
+/* Automatically changes the font colour on a taskcard from white to black, 
+ * depending on what the underlying background colour is. 
+ */
 using Avalonia.Data.Converters;
 using Avalonia.Media;
 using System;

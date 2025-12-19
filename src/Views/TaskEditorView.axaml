@@ -3,17 +3,22 @@
         xmlns:viewmodel="clr-namespace:App.ViewModels"
         x:Class="App.Views.TaskEditorView"
         x:DataType="viewmodel:TaskEditorViewModel"
-        Width="500" Height="800" Title="Edit Task" >
+        Width="500" Height="500" Title="Edit Task" >
 
     <StackPanel Spacing="10" Margin="10">
 
         <TextBox Text="{Binding TaskName}" Watermark="Title"/>
 
-        <TextBox Text="{Binding TaskDescription}" Watermark="Description"
-                 Height="300" />
-
         <ComboBox ItemsSource="{Binding AvailableColours}"
-                  SelectedItem="{Binding TaskColour}" />
+                  SelectedItem="{Binding TaskColour}" 
+                  />
+
+        <TextBox Text="{Binding TaskDescription}" Watermark="Description"
+                 Height="300" 
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"/>
+
+
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" 
                     Spacing="10" >

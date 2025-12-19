@@ -1,3 +1,6 @@
+/* The colours for the taskcards, uses Built in Brushes to help change the 
+ * background colours of taskcards and convert hexcodes into strings for the user
+ */
 using Avalonia.Data.Converters;
 using Avalonia.Media;
 using System;
@@ -12,18 +15,18 @@ namespace App.Helpers {
                               CultureInfo culture) {
             if (value is string s) {
                 return s switch {
-                "Magenta" => Brush.Parse("#F527CC"),
-                "Purple" => Brush.Parse("#B727F5"),
-                "Bulma" => Brush.Parse("#27F5B7"),
-                "Green" => Brush.Parse("#27F550"),
-                "Lime" => Brush.Parse("#65F527"),
-                "Blue" => Brush.Parse("#2765F5"),
-                "Trunks" => Brush.Parse("#27CCF5"),
-                "Yellow" => Brush.Parse("#CCF527"),
+                "Red" => Brush.Parse("#FF0040"),
                 "Orange" => Brush.Parse("#F5B727"),
-                "Red" => Brush.Parse("#F55027"),
-                "BluPurp" => Brush.Parse("#5027F5"),
+                "Yellow" => Brush.Parse("#CCF527"),
+                "Lime" => Brush.Parse("#65F527"),
+                "Bulma" => Brush.Parse("#27F5B7"),
+                "Trunks" => Brush.Parse("#27CCF5"),
+                "Blue" => Brush.Parse("#2765F5"),
+                "Purple" => Brush.Parse("#B727F5"),
+                "Magenta" => Brush.Parse("#F527CC"),
                 "White" => Brushes.White, 
+                "Black" => Brushes.Black,
+                "Transparent" => Brushes.Transparent,
                 _ => Brushes.Transparent
                 };
             }

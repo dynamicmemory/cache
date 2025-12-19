@@ -1,3 +1,6 @@
+/* Wraps a taskcard model with a taskcard viewmodel to mainly edit the fields 
+ * and state of the taskcard when changed in the UI
+ */
 using System.ComponentModel;
 using System.Windows.Input;
 using System;
@@ -30,7 +33,6 @@ namespace App.ViewModels {
             }
         }
 
-        // private string _taskDescription;
         public string TaskDescription { 
             get => TaskCardModel.TaskDescription;
             set { 
@@ -57,13 +59,15 @@ namespace App.ViewModels {
         public TaskCardViewModel(TaskCard taskCard, ColumnViewModel parent) {
             TaskCardModel = taskCard;
             ParentColumn = parent;
-            // _taskDescription = TaskCardModel.TaskDescription;
             OpenEditorCommand = new RelayCommand(OpenEditor);
         } 
 
+        /* Opens the editor window for a taskcard so that the taskcard fields 
+         * can be changed. Refer to TaskEditorViewModel and view for more info
+         */
         private async void OpenEditor() { 
-            var tevm = new TaskEditorViewModel(this);
-            var editor = new TaskEditorView { 
+            TaskEditorViewModel tevm = new TaskEditorViewModel(this);
+            TaskEditorView editor = new TaskEditorView { 
                 DataContext = tevm,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner};
 

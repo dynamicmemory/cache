@@ -1,3 +1,4 @@
+/* Models a column that taskcards sit inside of */
 using System.Collections.Generic;
 
 namespace App.Models {
