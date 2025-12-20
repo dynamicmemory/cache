@@ -125,6 +125,7 @@ namespace App.ViewModels {
         public void InsertTask(TaskCardViewModel card, int idx) {
             Tasks.Insert(idx, card); 
             ColumnModel.Tasks.Insert(idx, card.TaskCardModel);
+            card.ParentColumn = this;
 
             AnUpdateHasOccured?.Invoke();
         }
